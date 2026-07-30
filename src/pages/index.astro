@@ -140,10 +140,10 @@ const gifts = [
       </div>
     </div>
 
-    <div class="flex flex-col items-stretch gap-6 lg:flex-row lg:items-center lg:gap-8">
-      {/* Mobile: marquee only — full-width video felt too heavy above the cards */}
+    <div class="flex flex-row items-center gap-3 sm:gap-4 lg:gap-8">
+      {/* Mobile/tablet: small thumb beside marquee; lg: larger teaser */}
       <div
-        class="hidden w-full max-w-[300px] shrink-0 overflow-hidden rounded-2xl bg-[#e6dac5] lg:block"
+        class="w-20 shrink-0 overflow-hidden rounded-xl bg-[#e6dac5] sm:w-24 lg:w-full lg:max-w-[300px] lg:rounded-2xl"
       >
         <video
           class="aspect-square w-full object-cover pointer-events-none"
