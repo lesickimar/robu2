@@ -122,13 +122,25 @@ const gifts = [
     <BrandMarquee brands={brands} />
   </Section>
 
-  <!-- Kosze i paczki — marquee RTL, video below -->
+  <!-- Kosze i paczki — marquee RTL; mini video next to title -->
   <Section class="bg-gradient-to-b from-cream via-[#e6dac5] to-cream">
     <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
       <div>
-        <h2 class="text-2xl font-extrabold text-ink md:text-3xl">
-          Kosze i paczki prezentowe
-        </h2>
+        <div class="flex flex-wrap items-center gap-2.5 md:gap-3">
+          <h2 class="text-2xl font-extrabold leading-none text-ink md:text-3xl">
+            Kosze i paczki prezentowe
+          </h2>
+          <video
+            class="h-[1.15em] w-[1.15em] shrink-0 rounded-md object-cover pointer-events-none text-2xl md:text-3xl"
+            src={asset('/kosz_video.mp4')}
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            data-autoplay-half
+            aria-hidden="true"
+          ></video>
+        </div>
         <p class="mt-2 text-muted">
           Gotowe zestawy lub skomponujemy prezent pod Twoje potrzeby.
         </p>
@@ -144,18 +156,6 @@ const gifts = [
     </div>
 
     <GiftMarquee items={gifts} />
-
-    <div class="mx-auto mt-10 max-w-xl overflow-hidden rounded-2xl bg-[#e6dac5]">
-      <video
-        class="aspect-square w-full object-cover pointer-events-none"
-        src={asset('/kosz_video.mp4')}
-        muted
-        loop
-        playsinline
-        preload="metadata"
-        data-autoplay-half
-      ></video>
-    </div>
   </Section>
 
   <script>
