@@ -1,0 +1,33 @@
+# build output
+dist/
+# generated types
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+
+# environment variables
+.env
+.env.production
+
+# macOS-specific files
+.DS_Store
+
+# jetbrains setting folder
+.idea/
+
+# brainstorm / local tools
+.superpowers/
+
+# local source assets (heavy; site uses public/)
+_kosze/
+loga_firm/
+*.orig.mp4
+public/kosz_video.orig.mp4

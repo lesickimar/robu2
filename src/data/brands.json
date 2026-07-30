@@ -1,0 +1,28 @@
+{
+  "items": [
+    { "name": "Hortex", "logo": "/marki/hortex.png", "order": 1, "active": true },
+    { "name": "Winiary", "logo": "/marki/winiary.png", "order": 2, "active": true },
+    { "name": "Wedel", "logo": "/marki/wedel.png", "order": 3, "active": true },
+    { "name": "Nestlé", "logo": "/marki/nestle.png", "order": 4, "active": true },
+    { "name": "Hellmann's", "logo": "/marki/hellmanns.jpg", "order": 5, "active": true },
+    { "name": "Knorr", "logo": "/marki/knorr.jpg", "order": 6, "active": true },
+    { "name": "Tymbark", "logo": "/marki/tymbark.png", "order": 7, "active": true },
+    { "name": "Cisowianka", "logo": "/marki/cisowianka.png", "order": 8, "active": true },
+    { "name": "Prymat", "logo": "/marki/prymat.png", "order": 9, "active": true },
+    { "name": "Delecta", "logo": "/marki/delecta.png", "order": 10, "active": true },
+    { "name": "Herbapol", "logo": "/marki/herbapol.png", "order": 11, "active": true },
+    { "name": "Lubella", "logo": "/marki/lubella.png", "order": 12, "active": true },
+    { "name": "Dr. Oetker", "logo": "/marki/dr-oetker.png", "order": 13, "active": true },
+    { "name": "Milka", "logo": "/marki/milka.png", "order": 14, "active": true },
+    { "name": "Coca-Cola", "logo": "/marki/coca-cola.webp", "order": 15, "active": true },
+    { "name": "7DAYS", "logo": "/marki/7days.jpg", "order": 16, "active": true },
+    { "name": "Kubuś", "logo": "/marki/kubus.png", "order": 17, "active": true },
+    { "name": "Łowicz", "logo": "/marki/lowicz.png", "order": 18, "active": true },
+    { "name": "Nałęczowianka", "logo": "/marki/naleczowianka.jpg", "order": 19, "active": true },
+    { "name": "Kamis", "logo": "/marki/kamis.png", "order": 20, "active": true },
+    { "name": "Helio", "logo": "/marki/helio.png", "order": 21, "active": true },
+    { "name": "Fanex", "logo": "/marki/fanex.png", "order": 22, "active": true },
+    { "name": "Ahmad Tea", "logo": "/marki/ahmad-tea.jpg", "order": 23, "active": true },
+    { "name": "Hellena", "logo": "/marki/hellena.png", "order": 24, "active": true }
+  ]
+}

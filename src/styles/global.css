@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #723b6f;
+  --color-brand-dark: #5a2f58;
+  --color-cta: #ee2227;
+  --color-cta-dark: #c91b20;
+  --color-cream: #fbf7f2;
+  --color-ink: #2c2420;
+  --color-muted: #6b5e56;
+  --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-cream text-ink font-sans antialiased;
+}
+
+/* Sticky mobile CTA clearance */
+main {
+  padding-bottom: 5rem;
+}
+
+@media (min-width: 768px) {
+  main {
+    padding-bottom: 0;
+  }
+}

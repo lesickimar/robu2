@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import { site, telHref } from '../lib/site';
+---
+
+<BaseLayout
+  title="O nas"
+  description={`Poznaj ROBU2 — lokalną hurtownię spożywczą w ${site.address.city}. Asortyment znanych marek i kosze prezentowe.`}
+  path="/o-nas"
+>
+  <Section narrow>
+    <p class="text-sm font-bold uppercase tracking-wide text-brand">O firmie</p>
+    <h1 class="mt-2 text-4xl font-extrabold text-ink">Kim jesteśmy</h1>
+    <div class="prose-like mt-8 space-y-4 text-muted leading-relaxed">
+      <p>
+        <strong class="text-ink">ROBU2</strong> to hurtownia spożywcza z siedzibą w
+        <strong class="text-ink">Woli Rębkowskiej / Garwolinie</strong>. Dostarczamy produkty
+        znanych marek do sklepów, gastronomii oraz zakładów pracy w mieście i okolicach.
+      </p>
+      <p>
+        <strong class="text-ink">Obsługa firm</strong> to ważna część naszej działalności —
+        zaopatrzenie zakładów pracy w produkty spożywcze na co dzień: napoje, słodycze,
+        przyprawy i szerszy asortyment. Stawiamy na prosty kontakt i rzetelną współpracę B2B.
+        Więcej na stronie{' '}
+        <a href="/obsluga-firm" class="font-bold text-brand hover:underline">Obsługa firm</a>.
+      </p>
+      <p>
+        Oprócz hurtu przygotowujemy <strong class="text-ink">kosze i paczki prezentowe</strong> ze
+        słodyczy — na firmę, święta i prywatne okazje.
+      </p>
+    </div>
+
+    <ul class="mt-10 grid gap-4 sm:grid-cols-2">
+      {
+        [
+          { t: 'Lokalna obsługa', d: 'Jesteśmy blisko — Garwolin i okolice.' },
+          { t: 'Znane marki', d: 'Oferta oparta o uznanych producentów.' },
+          {
+            t: 'Obsługa firm i zakładów pracy',
+            d: 'Zaopatrzenie B2B bez zbędnych formalności — zadzwoń, ustalimy szczegóły.',
+          },
+          { t: 'Kosze i paczki na zamówienie', d: 'Skomponujemy zestaw pod budżet i okazję.' },
+        ].map((x) => (
+          <li class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-brand/5">
+            <p class="font-bold text-brand">{x.t}</p>
+            <p class="mt-1 text-sm text-muted">{x.d}</p>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="mt-10 flex flex-wrap gap-3">
+      <a
+        href={telHref()}
+        class="rounded-2xl bg-cta px-5 py-3 font-bold text-white hover:bg-cta-dark"
+      >
+        Zadzwoń
+      </a>
+      <a
+        href="/obsluga-firm"
+        class="rounded-2xl bg-white px-5 py-3 font-bold text-brand ring-1 ring-brand/15"
+      >
+        Obsługa firm
+      </a>
+      <a
+        href="/kontakt"
+        class="rounded-2xl bg-white px-5 py-3 font-bold text-brand ring-1 ring-brand/15"
+      >
+        Kontakt
+      </a>
+    </div>
+  </Section>
+</BaseLayout>

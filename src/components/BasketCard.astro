@@ -1,0 +1,39 @@
+---
+import type { Basket } from '../lib/site';
+import { telHref } from '../lib/site';
+
+interface Props {
+  basket: Basket;
+}
+
+const { basket } = Astro.props;
+---
+
+<article class="flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-brand/5">
+  <div class="aspect-[4/3] w-full shrink-0 overflow-hidden bg-[#f5f0e8]">
+    {
+      basket.image ? (
+        <img
+          src={basket.image}
+          alt={basket.title}
+          class="h-full w-full object-cover object-center"
+          loading="lazy"
+        />
+      ) : (
+        <div class="flex h-full items-center justify-center px-4 text-center text-sm font-semibold text-brand/70">
+          {basket.title}
+        </div>
+      )
+    }
+  </div>
+  <div class="flex flex-1 flex-col gap-3 p-5">
+    <h3 class="text-lg font-bold text-ink">{basket.title}</h3>
+    <p class="flex-1 text-sm text-muted">{basket.description}</p>
+    <a
+      href={telHref()}
+      class="inline-flex w-fit rounded-xl bg-cta px-3 py-2 text-sm font-bold text-white hover:bg-cta-dark"
+    >
+      Zapytaj o kosz
+    </a>
+  </div>
+</article>

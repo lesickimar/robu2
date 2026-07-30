@@ -1,0 +1,214 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import BrandMarquee from '../components/BrandMarquee.astro';
+import GiftMarquee from '../components/GiftMarquee.astro';
+import MapEmbed from '../components/MapEmbed.astro';
+import {
+  site,
+  activeBrands,
+  allBaskets,
+  allPackages,
+  telHref,
+  fullAddress,
+} from '../lib/site';
+
+const brands = activeBrands();
+const gifts = [
+  ...allBaskets().map((b) => ({
+    id: `b-${b.id}`,
+    title: b.title,
+    image: b.image,
+    href: '/kosze-prezentowe',
+  })),
+  ...allPackages().map((p) => ({
+    id: `p-${p.id}`,
+    title: p.title,
+    image: p.image,
+    href: '/paczki-prezentowe',
+  })),
+];
+---
+
+<BaseLayout
+  title="Hurtownia spożywcza Garwolin | ROBU2"
+  description={site.description}
+  path="/"
+>
+  <!-- Hero -->
+  <section class="relative overflow-hidden">
+    <div
+      class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--color-brand)_0%,_transparent_50%),radial-gradient(ellipse_at_bottom_left,_var(--color-cta)_0%,_transparent_45%)] opacity-[0.07]"
+    >
+    </div>
+    <div class="relative mx-auto max-w-6xl px-4 py-16 md:py-24">
+      <p class="mb-3 text-sm font-bold uppercase tracking-wide text-brand">
+        {site.address.city} i okolice
+      </p>
+      <h1 class="max-w-2xl text-4xl font-extrabold leading-tight text-ink md:text-5xl">
+        Hurtownia spożywcza <span class="text-brand">Garwolin</span>
+      </h1>
+      <p class="mt-4 max-w-xl text-lg text-muted">
+        Znane marki dla sklepów, gastronomii i zakładów pracy. Szybki kontakt,
+        lokalna obsługa firm i kosze prezentowe na każdą okazję.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a
+          href={telHref()}
+          class="rounded-2xl bg-cta px-6 py-3.5 text-base font-bold text-white shadow-md transition hover:bg-cta-dark"
+        >
+          Zadzwoń: {site.phoneDisplay}
+        </a>
+        <a
+          href="/marki"
+          class="rounded-2xl bg-white px-6 py-3.5 text-base font-bold text-brand shadow-sm ring-1 ring-brand/15 transition hover:bg-brand/5"
+        >
+          Zobacz marki
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- USP -->
+  <Section class="!pt-0 mt-5">
+    <ul class="grid gap-4 md:grid-cols-3">
+      {
+        [
+          {
+            t: 'Szeroki asortyment',
+            d: 'Produkty spożywcze renomowanych marek — od napojów po słodycze i przyprawy.',
+            href: '/marki',
+          },
+          {
+            t: 'Obsługa firm',
+            d: 'Zaopatrzenie zakładów pracy, sklepów i gastronomii w Garwolinie oraz okolicach.',
+            href: '/obsluga-firm',
+          },
+          {
+            t: 'Kosze prezentowe',
+            d: 'Słodycze i gotowe zestawy — na firmę, święta i okazje prywatne.',
+            href: '/kosze-prezentowe',
+          },
+        ].map((u) => (
+          <li class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-brand/5">
+            <h2 class="text-lg font-bold text-brand">
+              {u.href ? (
+                <a href={u.href} class="hover:underline">
+                  {u.t}
+                </a>
+              ) : (
+                u.t
+              )}
+            </h2>
+            <p class="mt-2 text-sm text-muted">{u.d}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
+  <!-- Marki teaser -->
+  <Section>
+    <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <h2 class="text-2xl font-extrabold text-ink md:text-3xl">Marki w ofercie</h2>
+        <p class="mt-2 text-muted">
+          Współpracujemy z uznanymi producentami. Pełna lista na stronie marek.
+        </p>
+      </div>
+      <a href="/marki" class="font-bold text-brand hover:underline">Wszystkie marki →</a>
+    </div>
+    <BrandMarquee brands={brands} />
+  </Section>
+
+  <!-- Kosze i paczki — marquee RTL, video below -->
+  <Section class="bg-gradient-to-b from-cream via-[#e6dac5] to-cream">
+    <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <h2 class="text-2xl font-extrabold text-ink md:text-3xl">
+          Kosze i paczki prezentowe
+        </h2>
+        <p class="mt-2 text-muted">
+          Gotowe zestawy lub skomponujemy prezent pod Twoje potrzeby.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-x-4 gap-y-1">
+        <a href="/kosze-prezentowe" class="font-bold text-brand hover:underline">
+          Kosze →
+        </a>
+        <a href="/paczki-prezentowe" class="font-bold text-brand hover:underline">
+          Paczki →
+        </a>
+      </div>
+    </div>
+
+    <GiftMarquee items={gifts} />
+
+    <div class="mx-auto mt-10 max-w-xl overflow-hidden rounded-2xl bg-[#e6dac5]">
+      <video
+        class="aspect-square w-full object-cover pointer-events-none"
+        src="/kosz_video.mp4"
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        data-autoplay-half
+      ></video>
+    </div>
+  </Section>
+
+  <script>
+    const videos = document.querySelectorAll('video[data-autoplay-half]');
+    if (videos.length && 'IntersectionObserver' in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            const video = entry.target as HTMLVideoElement;
+            if (entry.isIntersecting) {
+              video.play().catch(() => {});
+            } else {
+              video.pause();
+              video.currentTime = 0;
+            }
+          }
+        },
+        { threshold: 0.5 },
+      );
+      videos.forEach((v) => io.observe(v));
+    }
+  </script>
+
+  <!-- NAP + mapa -->
+  <Section>
+    <div class="grid gap-6 lg:grid-cols-2 lg:items-stretch">
+      <div class="rounded-3xl bg-brand px-6 py-10 text-white md:px-10">
+        <h2 class="text-2xl font-extrabold md:text-3xl">Odwiedź nas lub zadzwoń</h2>
+        <p class="mt-3 text-white/85">
+          {fullAddress()}
+          <br />
+          {site.hours}
+        </p>
+        <ul class="mt-6 list-inside list-disc space-y-1 text-sm text-white/90">
+          <li>Sklepy spożywcze i convenience</li>
+          <li>Gastronomia i catering</li>
+          <li>Firmy szukające koszy prezentowych</li>
+        </ul>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a
+            href={telHref()}
+            class="rounded-2xl bg-cta px-5 py-3 font-bold text-white hover:bg-cta-dark"
+          >
+            {site.phoneDisplay}
+          </a>
+          <a
+            href="/kontakt"
+            class="rounded-2xl bg-white/15 px-5 py-3 font-bold text-white ring-1 ring-white/30 hover:bg-white/25"
+          >
+            Dane kontaktowe
+          </a>
+        </div>
+      </div>
+      <MapEmbed heightClass="min-h-[280px] h-full" class="h-full" />
+    </div>
+  </Section>
+</BaseLayout>

@@ -1,0 +1,140 @@
+---
+import type { Brand } from '../lib/site';
+
+interface Props {
+  brands: Brand[];
+}
+
+const { brands } = Astro.props;
+---
+
+<div class="brand-marquee" aria-label="Marki w ofercie">
+  <div class="brand-marquee__viewport">
+    <div class="brand-marquee__track">
+      {
+        [0, 1].map((copy) => (
+          <ul class="brand-marquee__group" aria-hidden={copy === 1 ? 'true' : undefined}>
+            {brands.map((b) => (
+              <li class="brand-marquee__item">
+                <img
+                  src={b.logo}
+                  alt={copy === 0 ? b.name : ''}
+                  width="120"
+                  height="48"
+                  loading="eager"
+                  decoding="async"
+                  draggable="false"
+                />
+              </li>
+            ))}
+          </ul>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<style>
+  .brand-marquee {
+    background: #fff;
+    border-radius: 1rem;
+    padding: 1.25rem 0;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+    border: 1px solid color-mix(in srgb, var(--color-brand, #723b6f) 8%, transparent);
+    min-height: 5.5rem;
+  }
+
+  .brand-marquee__viewport {
+    overflow: hidden;
+    width: 100%;
+    /* fade edges — webkit required for iOS Safari */
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      #000 6%,
+      #000 94%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      #000 6%,
+      #000 94%,
+      transparent 100%
+    );
+  }
+
+  .brand-marquee__track {
+    display: flex;
+    width: max-content;
+    animation: robu-brand-scroll 40s linear infinite;
+    will-change: transform;
+  }
+
+  .brand-marquee__group {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 2rem;
+    padding-inline: 1rem;
+    margin: 0;
+    list-style: none;
+  }
+
+  .brand-marquee__item {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 7rem;
+    height: 3rem;
+  }
+
+  .brand-marquee__item img {
+    display: block;
+    max-height: 2.75rem;
+    max-width: 6.5rem;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .brand-marquee:hover .brand-marquee__track {
+    animation-play-state: paused;
+  }
+
+  /* touch devices: no hover pause stuck state */
+  @media (hover: none) {
+    .brand-marquee:hover .brand-marquee__track {
+      animation-play-state: running;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .brand-marquee__viewport {
+      -webkit-mask-image: none;
+      mask-image: none;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .brand-marquee__track {
+      animation: none;
+    }
+
+    .brand-marquee__group[aria-hidden='true'] {
+      display: none;
+    }
+  }
+</style>
+
+<style is:global>
+  @keyframes robu-brand-scroll {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+</style>

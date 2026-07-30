@@ -1,0 +1,31 @@
+{
+  "items": [
+    {
+      "id": "slodki-klasyczny",
+      "title": "Kosz słodki klasyczny",
+      "description": "Zestaw słodyczy znanych marek — idealny na upominek firmowy lub okazję rodzinną.",
+      "image": "/images/kosze/kosz.jpg",
+      "hasAlcohol": false,
+      "featured": true,
+      "order": 1
+    },
+    {
+      "id": "premium-slodycze",
+      "title": "Kosz premium ze słodyczami",
+      "description": "Wyselekcjonowane czekolady i przysmaki w eleganckim opakowaniu.",
+      "image": "/images/kosze/ROBU0001.jpg",
+      "hasAlcohol": false,
+      "featured": true,
+      "order": 2
+    },
+    {
+      "id": "swiateczny",
+      "title": "Kosz świąteczny",
+      "description": "Słodycze w świątecznej oprawie — na firmowe i rodzinne okazje.",
+      "image": "/images/kosze/ROBU0003.jpg",
+      "hasAlcohol": false,
+      "featured": true,
+      "order": 3
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+# Sveltia CMS / Decap CMS — git-backed
+# Backend: ustaw po podłączeniu repo (GitHub) lub użyj local backend do dev.
+local_backend: true
+
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: public/images
+public_folder: /images
+
+locale: pl
+
+collections:
+  - name: settings
+    label: Ustawienia strony
+    files:
+      - name: site
+        label: Kontakt i NAP
+        file: src/data/site.json
+        fields:
+          - { name: name, label: Nazwa, widget: string }
+          - { name: legalName, label: Nazwa pełna, widget: string }
+          - { name: tagline, label: Tagline, widget: string }
+          - { name: description, label: Opis SEO, widget: text }
+          - { name: phone, label: Telefon (E.164, np. +48…), widget: string }
+          - { name: phoneDisplay, label: Telefon wyświetlany, widget: string }
+          - { name: email, label: E-mail, widget: string }
+          - { name: hours, label: Godziny, widget: string }
+          - { name: mapEmbedUrl, label: URL embed mapy Google, widget: string, required: false }
+          - { name: url, label: URL strony, widget: string }
+          - name: address
+            label: Adres
+            widget: object
+            fields:
+              - { name: street, label: Ulica, widget: string }
+              - { name: postalCode, label: Kod, widget: string }
+              - { name: city, label: Miasto, widget: string }
+              - { name: region, label: Województwo, widget: string }
+              - { name: country, label: Kraj, widget: string }
+
+  - name: brands
+    label: Marki
+    files:
+      - name: brands
+        label: Lista marek
+        file: src/data/brands.json
+        fields:
+          - name: items
+            label: Marki
+            widget: list
+            summary: '{{fields.name}}'
+            fields:
+              - { name: name, label: Nazwa, widget: string }
+              - { name: logo, label: Logo (ścieżka /marki/…), widget: string }
+              - { name: order, label: Kolejność, widget: number, value_type: int }
+              - { name: active, label: Aktywna, widget: boolean, default: true }
+
+  - name: baskets
+    label: Kosze prezentowe
+    files:
+      - name: baskets
+        label: Lista koszy
+        file: src/data/baskets.json
+        fields:
+          - name: items
+            label: Kosze
+            widget: list
+            summary: '{{fields.title}}'
+            fields:
+              - { name: id, label: ID (slug), widget: string }
+              - { name: title, label: Tytuł, widget: string }
+              - { name: description, label: Opis, widget: text }
+              - { name: image, label: Zdjęcie, widget: image, required: false }
+              - { name: hasAlcohol, label: Z alkoholem, widget: boolean, default: false }
+              - { name: featured, label: Na homepage, widget: boolean, default: true }
+              - { name: order, label: Kolejność, widget: number, value_type: int }

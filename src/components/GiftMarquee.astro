@@ -1,0 +1,175 @@
+---
+interface GiftItem {
+  id: string;
+  title: string;
+  image: string;
+  href: string;
+}
+
+interface Props {
+  items: GiftItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="gift-marquee" aria-label="Kosze i paczki prezentowe">
+  <div class="gift-marquee__viewport">
+    <div class="gift-marquee__track">
+      {
+        [0, 1].map((copy) => (
+          <ul class="gift-marquee__group" aria-hidden={copy === 1 ? 'true' : undefined}>
+            {items.map((item) => (
+              <li class="gift-marquee__item">
+                <a href={item.href} class="gift-marquee__card">
+                  <div class="gift-marquee__img-wrap">
+                    <img
+                      src={item.image}
+                      alt={copy === 0 ? item.title : ''}
+                      width="280"
+                      height="210"
+                      loading="lazy"
+                      decoding="async"
+                      draggable="false"
+                    />
+                  </div>
+                  <span class="gift-marquee__title">{item.title}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<style>
+  .gift-marquee {
+    width: 100%;
+  }
+
+  .gift-marquee__viewport {
+    overflow: hidden;
+    width: 100%;
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      #000 5%,
+      #000 95%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      #000 5%,
+      #000 95%,
+      transparent 100%
+    );
+  }
+
+  .gift-marquee__track {
+    display: flex;
+    width: max-content;
+    animation: robu-gift-scroll 45s linear infinite;
+    will-change: transform;
+  }
+
+  .gift-marquee__group {
+    display: flex;
+    flex-shrink: 0;
+    gap: 1rem;
+    padding-inline: 0.5rem;
+    margin: 0;
+    list-style: none;
+  }
+
+  .gift-marquee__item {
+    flex: 0 0 auto;
+    width: 15rem;
+  }
+
+  @media (min-width: 768px) {
+    .gift-marquee__item {
+      width: 17rem;
+    }
+  }
+
+  .gift-marquee__card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 1rem;
+    background: #fff;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+    border: 1px solid color-mix(in srgb, var(--color-brand, #723b6f) 8%, transparent);
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.15s ease;
+  }
+
+  .gift-marquee__card:hover {
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.08);
+  }
+
+  .gift-marquee__img-wrap {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: #f5f0e8;
+  }
+
+  .gift-marquee__img-wrap img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .gift-marquee__title {
+    padding: 0.75rem 1rem 1rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-ink, #2c2420);
+    line-height: 1.3;
+  }
+
+  .gift-marquee:hover .gift-marquee__track {
+    animation-play-state: paused;
+  }
+
+  @media (hover: none) {
+    .gift-marquee:hover .gift-marquee__track {
+      animation-play-state: running;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gift-marquee__viewport {
+      -webkit-mask-image: none;
+      mask-image: none;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .gift-marquee__track {
+      animation: none;
+    }
+
+    .gift-marquee__group[aria-hidden='true'] {
+      display: none;
+    }
+  }
+</style>
+
+<style is:global>
+  @keyframes robu-gift-scroll {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+</style>

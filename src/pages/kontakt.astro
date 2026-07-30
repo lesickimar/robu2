@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import MapEmbed from '../components/MapEmbed.astro';
+import { site, fullAddress, telHref } from '../lib/site';
+---
+
+<BaseLayout
+  title="Kontakt"
+  description={`Kontakt ROBU2 — hurtownia spożywcza Garwolin. Telefon, e-mail, adres: ${fullAddress()}.`}
+  path="/kontakt"
+>
+  <Section>
+    <p class="text-sm font-bold uppercase tracking-wide text-brand">NAP</p>
+    <h1 class="mt-2 text-4xl font-extrabold text-ink">Kontakt</h1>
+    <p class="mt-4 max-w-xl text-muted">
+      Najszybciej dodzwonisz się. Chętnie pomożemy w doborze asortymentu i koszy
+      prezentowych.
+    </p>
+
+    <div class="mt-10 grid gap-6 md:grid-cols-2">
+      <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-brand/5">
+        <h2 class="text-lg font-bold text-brand">Dane kontaktowe</h2>
+        <dl class="mt-4 space-y-3 text-sm">
+          <div>
+            <dt class="font-semibold text-ink">Telefon</dt>
+            <dd>
+              <a class="text-cta hover:underline" href={telHref()}>{site.phoneDisplay}</a>
+            </dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-ink">E-mail</dt>
+            <dd>
+              <a class="hover:underline" href={`mailto:${site.email}`}>{site.email}</a>
+            </dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-ink">Adres</dt>
+            <dd>{fullAddress()}</dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-ink">Godziny</dt>
+            <dd>{site.hours}</dd>
+          </div>
+        </dl>
+
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a
+            href={telHref()}
+            class="rounded-2xl bg-cta px-5 py-3 font-bold text-white hover:bg-cta-dark"
+          >
+            Zadzwoń
+          </a>
+        </div>
+      </div>
+
+      <MapEmbed heightClass="min-h-[320px] h-full" />
+    </div>
+  </Section>
+</BaseLayout>

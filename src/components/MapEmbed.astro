@@ -1,0 +1,29 @@
+---
+import { mapEmbedSrc, mapLinkHref, site } from '../lib/site';
+
+interface Props {
+  class?: string;
+  /** min height classes */
+  heightClass?: string;
+}
+
+const { class: className = '', heightClass = 'min-h-[320px]' } = Astro.props;
+const src = mapEmbedSrc();
+const openHref = mapLinkHref();
+---
+
+<div class:list={['overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-brand/5', className]}>
+  <iframe
+    title={`Mapa — ${site.name}, ${site.address.city}`}
+    src={src}
+    class:list={['w-full border-0', heightClass]}
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"
+    allowfullscreen
+  />
+  <p class="border-t border-brand/5 px-3 py-2 text-center text-xs text-muted">
+    <a href={openHref} class="font-semibold text-brand hover:underline" target="_blank" rel="noopener noreferrer">
+      Otwórz w Google Maps
+    </a>
+  </p>
+</div>

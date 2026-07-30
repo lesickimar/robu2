@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://robu2.pl/sitemap-index.xml

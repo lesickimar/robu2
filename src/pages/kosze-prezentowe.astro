@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import BasketCard from '../components/BasketCard.astro';
+import { allBaskets, telHref } from '../lib/site';
+
+const baskets = allBaskets();
+---
+
+<BaseLayout
+  title="Kosze prezentowe Garwolin"
+  description="Kosze prezentowe ze słodyczami — ROBU2 Garwolin. Na firmę, święta i okazje prywatne."
+  path="/kosze-prezentowe"
+>
+  <Section>
+    <p class="text-sm font-bold uppercase tracking-wide text-brand">Prezenty</p>
+    <h1 class="mt-2 text-4xl font-extrabold text-ink">Kosze prezentowe</h1>
+    <p class="mt-4 max-w-2xl text-muted">
+      Komponujemy kosze ze słodyczy znanych marek.
+      Idealne na upominki firmowe, święta i okazje rodzinne w Garwolinie i okolicach.
+    </p>
+
+    <div class="mt-10 grid gap-6 md:grid-cols-3">
+      {baskets.map((b) => <BasketCard basket={b} />)}
+    </div>
+
+    <div class="mt-12 rounded-3xl bg-brand px-6 py-8 text-white md:px-10">
+      <h2 class="text-xl font-extrabold md:text-2xl">Kosz na zamówienie?</h2>
+      <p class="mt-2 text-white/85">
+        Podaj budżet, okazję i preferencje — przygotujemy propozycję dopasowaną do Twoich
+        potrzeb.
+      </p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a
+          href={telHref()}
+          class="rounded-2xl bg-cta px-5 py-3 font-bold text-white hover:bg-cta-dark"
+        >
+          Zadzwoń
+        </a>
+        <a
+          href="/paczki-prezentowe"
+          class="rounded-2xl bg-white/15 px-5 py-3 font-bold text-white ring-1 ring-white/30 hover:bg-white/25"
+        >
+          Zobacz paczki
+        </a>
+      </div>
+    </div>
+  </Section>
+</BaseLayout>

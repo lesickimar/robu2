@@ -1,0 +1,31 @@
+{
+  "items": [
+    {
+      "id": "box-slodycze",
+      "title": "Box ze słodyczami",
+      "description": "Elegancki box upominkowy pełen słodyczy i przekąsek — gotowy do wręczenia.",
+      "image": "/images/kosze/08.jpg",
+      "hasAlcohol": false,
+      "featured": true,
+      "order": 1
+    },
+    {
+      "id": "elegancki-box",
+      "title": "Elegancki box prezentowy",
+      "description": "Wyrafinowany zestaw słodyczy w stylowym opakowaniu — na firmę i specjalne okazje.",
+      "image": "/images/kosze/10.jpg",
+      "hasAlcohol": false,
+      "featured": true,
+      "order": 2
+    },
+    {
+      "id": "slodycze-worek",
+      "title": "Worek ze słodyczami",
+      "description": "Kolorowy worek pełen popularnych słodyczy — lekki i wygodny prezent.",
+      "image": "/images/kosze/ROBU0006.jpg",
+      "hasAlcohol": false,
+      "featured": true,
+      "order": 3
+    }
+  ]
+}

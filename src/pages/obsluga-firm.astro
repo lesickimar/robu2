@@ -1,0 +1,95 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import { site, telHref, fullAddress } from '../lib/site';
+---
+
+<BaseLayout
+  title="Obsługa firm i zaopatrzenie zakładów pracy"
+  description={`Obsługa firm i zaopatrzenie zakładów pracy — ROBU2 Garwolin. Produkty spożywcze znanych marek dla firm, sklepów i gastronomii w ${site.address.city} i okolicach.`}
+  path="/obsluga-firm"
+>
+  <Section>
+    <p class="text-sm font-bold uppercase tracking-wide text-brand">B2B</p>
+    <h1 class="mt-2 text-4xl font-extrabold text-ink">Obsługa firm</h1>
+    <p class="mt-4 max-w-2xl text-muted">
+      Zaopatrzenie zakładów pracy, sklepów i gastronomii w Garwolinie oraz okolicach.
+      Prosty kontakt, lokalna obsługa i asortyment znanych marek.
+    </p>
+
+    <div class="mt-10 grid gap-4 md:grid-cols-3">
+      {
+        [
+          {
+            t: 'Zakłady pracy',
+            d: 'Regularne zaopatrzenie w napoje, słodycze, przekąski i produkty spożywcze na co dzień.',
+          },
+          {
+            t: 'Sklepy i gastronomia',
+            d: 'Hurt znanych marek — od napojów po przyprawy i słodycze, pod potrzeby Twojej działalności.',
+          },
+          {
+            t: 'Prezenty firmowe',
+            d: 'Kosze i paczki prezentowe na święta, eventy i upominki dla pracowników oraz partnerów.',
+          },
+        ].map((x) => (
+          <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-brand/5">
+            <h2 class="text-lg font-bold text-brand">{x.t}</h2>
+            <p class="mt-2 text-sm text-muted">{x.d}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="mt-12 grid gap-8 lg:grid-cols-2 lg:items-start">
+      <div class="space-y-4 text-muted leading-relaxed">
+        <h2 class="text-xl font-extrabold text-ink">Jak wygląda współpraca?</h2>
+        <p>
+          Dzwonisz lub piszesz — ustalamy asortyment, ilości i sposób odbioru.
+          Bez zbędnych formalności na start. Jesteśmy lokalnie w
+          <strong class="text-ink"> {fullAddress()}</strong>
+          ({site.hours}).
+        </p>
+        <p>
+          Potrzebujesz stałego zaopatrzenia zakładu albo jednorazowej dostawy pod event?
+          Dopasujemy ofertę do budżetu i harmonogramu.
+        </p>
+        <ul class="list-inside list-disc space-y-1 text-sm">
+          <li>Produkty spożywcze renomowanych marek</li>
+          <li>Obsługa firm z Garwolina i okolic</li>
+          <li>Szybki kontakt telefoniczny i mailowy</li>
+          <li>Kosze i paczki prezentowe na zamówienie</li>
+        </ul>
+      </div>
+
+      <div class="rounded-3xl bg-brand px-6 py-8 text-white md:px-10">
+        <h2 class="text-xl font-extrabold md:text-2xl">Zapytaj o współpracę</h2>
+        <p class="mt-2 text-white/85">
+          Opowiedz o potrzebach firmy — przygotujemy propozycję asortymentu lub prezentów
+          firmowych.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a
+            href={telHref()}
+            class="rounded-2xl bg-cta px-5 py-3 font-bold text-white hover:bg-cta-dark"
+          >
+            Zadzwoń: {site.phoneDisplay}
+          </a>
+          <a
+            href={`mailto:${site.email}`}
+            class="rounded-2xl bg-white/15 px-5 py-3 font-bold text-white ring-1 ring-white/30 hover:bg-white/25"
+          >
+            Napisz e-mail
+          </a>
+        </div>
+        <p class="mt-6 text-sm text-white/70">
+          <a href="/marki" class="underline hover:text-white">Marki w ofercie</a>
+          {' · '}
+          <a href="/kosze-prezentowe" class="underline hover:text-white">Kosze</a>
+          {' · '}
+          <a href="/paczki-prezentowe" class="underline hover:text-white">Paczki</a>
+        </p>
+      </div>
+    </div>
+  </Section>
+</BaseLayout>

@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import BrandGrid from '../components/BrandGrid.astro';
+import { activeBrands, telHref } from '../lib/site';
+
+const brands = activeBrands();
+---
+
+<BaseLayout
+  title="Marki w ofercie"
+  description="Marki dostępne w hurtowni ROBU2 w Garwolinie — Hortex, Winiary, Wedel, Nestlé i wiele innych."
+  path="/marki"
+>
+  <Section>
+    <p class="text-sm font-bold uppercase tracking-wide text-brand">Asortyment</p>
+    <h1 class="mt-2 text-4xl font-extrabold text-ink">Marki w ofercie</h1>
+    <p class="mt-4 max-w-2xl text-muted">
+      Poniżej wybrane marki, z którymi pracujemy. Lista nie jest zamknięta — o konkretny
+      produkt lub producenta zapytaj telefonicznie.
+    </p>
+    <div class="mt-10">
+      <BrandGrid brands={brands} />
+    </div>
+    <p class="mt-10 text-center text-sm text-muted">
+      Szukasz konkretnej marki?{' '}
+      <a href={telHref()} class="font-bold text-cta hover:underline">Zadzwoń</a>
+      {' '}— potwierdzimy dostępność.
+    </p>
+  </Section>
+</BaseLayout>

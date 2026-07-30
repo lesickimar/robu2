@@ -1,0 +1,56 @@
+---
+import { site, telHref } from '../lib/site';
+
+const path = Astro.url.pathname;
+const links = [
+  { href: '/o-nas', label: 'O nas' },
+  { href: '/obsluga-firm', label: 'Firmy' },
+  { href: '/marki', label: 'Marki' },
+  { href: '/kosze-prezentowe', label: 'Kosze' },
+  { href: '/paczki-prezentowe', label: 'Paczki' },
+  { href: '/kontakt', label: 'Kontakt' },
+];
+
+function active(href: string) {
+  return path === href || path.startsWith(href + '/');
+}
+---
+
+<header class="sticky top-0 z-40 border-b border-brand/10 bg-cream/95 backdrop-blur">
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
+    <a href="/" class="shrink-0" aria-label="ROBU2 — strona główna">
+      <img src="/logo.svg" alt="ROBU2" class="h-9 w-auto md:h-11" width="200" height="35" />
+    </a>
+
+    <nav class="hidden items-center gap-1 md:flex" aria-label="Główne">
+      {
+        links.map((l) => (
+          <a
+            href={l.href}
+            class:list={[
+              'rounded-xl px-3 py-2 text-sm font-semibold transition',
+              active(l.href)
+                ? 'bg-brand/10 text-brand'
+                : 'text-ink/80 hover:bg-brand/5 hover:text-brand',
+            ]}
+          >
+            {l.label}
+          </a>
+        ))
+      }
+      <a
+        href={telHref()}
+        class="ml-2 rounded-xl bg-cta px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-cta-dark"
+      >
+        {site.phoneDisplay}
+      </a>
+    </nav>
+
+    <a
+      href={telHref()}
+      class="rounded-xl bg-cta px-3 py-2 text-sm font-bold text-white md:hidden"
+    >
+      Zadzwoń
+    </a>
+  </div>
+</header>
