@@ -14,6 +14,19 @@ export const brands = brandsData.items;
 export const baskets = basketsData.items;
 export const packages = packagesData.items;
 
+/**
+ * Prefix path with Astro `base` (e.g. `/robu2` on GitHub Pages).
+ * Use for public assets and internal links so they work under a subpath.
+ */
+export function asset(path: string) {
+  if (!path) return path;
+  if (/^(https?:|tel:|mailto:|#)/i.test(path)) return path;
+  const base = import.meta.env.BASE_URL || '/';
+  if (path === '/') return base;
+  const clean = path.replace(/^\//, '');
+  return `${base.endsWith('/') ? base : `${base}/`}${clean}`;
+}
+
 export function activeBrands() {
   return brands
     .filter((b) => b.active)

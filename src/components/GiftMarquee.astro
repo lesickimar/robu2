@@ -1,4 +1,6 @@
 ---
+import { asset } from '../lib/site';
+
 interface GiftItem {
   id: string;
   title: string;
@@ -21,10 +23,10 @@ const { items } = Astro.props;
           <ul class="gift-marquee__group" aria-hidden={copy === 1 ? 'true' : undefined}>
             {items.map((item) => (
               <li class="gift-marquee__item">
-                <a href={item.href} class="gift-marquee__card">
+                <a href={asset(item.href)} class="gift-marquee__card">
                   <div class="gift-marquee__img-wrap">
                     <img
-                      src={item.image}
+                      src={asset(item.image)}
                       alt={copy === 0 ? item.title : ''}
                       width="280"
                       height="210"

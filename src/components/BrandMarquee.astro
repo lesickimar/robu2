@@ -1,5 +1,6 @@
 ---
 import type { Brand } from '../lib/site';
+import { asset } from '../lib/site';
 
 interface Props {
   brands: Brand[];
@@ -17,7 +18,7 @@ const { brands } = Astro.props;
             {brands.map((b) => (
               <li class="brand-marquee__item">
                 <img
-                  src={b.logo}
+                  src={asset(b.logo)}
                   alt={copy === 0 ? b.name : ''}
                   width="120"
                   height="48"

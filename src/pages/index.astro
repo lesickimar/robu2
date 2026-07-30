@@ -11,6 +11,7 @@ import {
   allPackages,
   telHref,
   fullAddress,
+  asset,
 } from '../lib/site';
 
 const brands = activeBrands();
@@ -60,7 +61,7 @@ const gifts = [
           Zadzwoń: {site.phoneDisplay}
         </a>
         <a
-          href="/marki"
+          href={asset('/marki')}
           class="rounded-2xl bg-white px-6 py-3.5 text-base font-bold text-brand shadow-sm ring-1 ring-brand/15 transition hover:bg-brand/5"
         >
           Zobacz marki
@@ -93,7 +94,7 @@ const gifts = [
           <li class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-brand/5">
             <h2 class="text-lg font-bold text-brand">
               {u.href ? (
-                <a href={u.href} class="hover:underline">
+                <a href={asset(u.href)} class="hover:underline">
                   {u.t}
                 </a>
               ) : (
@@ -116,7 +117,7 @@ const gifts = [
           Współpracujemy z uznanymi producentami. Pełna lista na stronie marek.
         </p>
       </div>
-      <a href="/marki" class="font-bold text-brand hover:underline">Wszystkie marki →</a>
+      <a href={asset('/marki')} class="font-bold text-brand hover:underline">Wszystkie marki →</a>
     </div>
     <BrandMarquee brands={brands} />
   </Section>
@@ -133,10 +134,10 @@ const gifts = [
         </p>
       </div>
       <div class="flex flex-wrap gap-x-4 gap-y-1">
-        <a href="/kosze-prezentowe" class="font-bold text-brand hover:underline">
+        <a href={asset('/kosze-prezentowe')} class="font-bold text-brand hover:underline">
           Kosze →
         </a>
-        <a href="/paczki-prezentowe" class="font-bold text-brand hover:underline">
+        <a href={asset('/paczki-prezentowe')} class="font-bold text-brand hover:underline">
           Paczki →
         </a>
       </div>
@@ -147,7 +148,7 @@ const gifts = [
     <div class="mx-auto mt-10 max-w-xl overflow-hidden rounded-2xl bg-[#e6dac5]">
       <video
         class="aspect-square w-full object-cover pointer-events-none"
-        src="/kosz_video.mp4"
+        src={asset('/kosz_video.mp4')}
         muted
         loop
         playsinline
@@ -201,7 +202,7 @@ const gifts = [
             {site.phoneDisplay}
           </a>
           <a
-            href="/kontakt"
+            href={asset('/kontakt')}
             class="rounded-2xl bg-white/15 px-5 py-3 font-bold text-white ring-1 ring-white/30 hover:bg-white/25"
           >
             Dane kontaktowe

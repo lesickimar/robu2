@@ -1,6 +1,6 @@
 ---
 import type { Basket } from '../lib/site';
-import { telHref } from '../lib/site';
+import { telHref, asset } from '../lib/site';
 
 interface Props {
   basket: Basket;
@@ -14,7 +14,7 @@ const { basket } = Astro.props;
     {
       basket.image ? (
         <img
-          src={basket.image}
+          src={asset(basket.image)}
           alt={basket.title}
           class="h-full w-full object-cover object-center"
           loading="lazy"

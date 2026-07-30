@@ -1,5 +1,6 @@
 ---
 import type { Brand } from '../lib/site';
+import { asset } from '../lib/site';
 
 interface Props {
   brands: Brand[];
@@ -15,7 +16,7 @@ const list = limit ? brands.slice(0, limit) : brands;
     list.map((b) => (
       <li class="flex aspect-[4/3] items-center justify-center rounded-2xl bg-white p-4 shadow-sm ring-1 ring-brand/5 transition hover:shadow-md">
         <img
-          src={b.logo}
+          src={asset(b.logo)}
           alt={b.name}
           class="max-h-12 w-auto max-w-full object-contain"
           loading="lazy"

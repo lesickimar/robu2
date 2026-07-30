@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Section from '../components/Section.astro';
-import { site, telHref } from '../lib/site';
+import { site, telHref, asset } from '../lib/site';
 ---
 
 <BaseLayout
@@ -23,7 +23,7 @@ import { site, telHref } from '../lib/site';
         zaopatrzenie zakładów pracy w produkty spożywcze na co dzień: napoje, słodycze,
         przyprawy i szerszy asortyment. Stawiamy na prosty kontakt i rzetelną współpracę B2B.
         Więcej na stronie{' '}
-        <a href="/obsluga-firm" class="font-bold text-brand hover:underline">Obsługa firm</a>.
+        <a href={asset('/obsluga-firm')} class="font-bold text-brand hover:underline">Obsługa firm</a>.
       </p>
       <p>
         Oprócz hurtu przygotowujemy <strong class="text-ink">kosze i paczki prezentowe</strong> ze
@@ -58,13 +58,13 @@ import { site, telHref } from '../lib/site';
         Zadzwoń
       </a>
       <a
-        href="/obsluga-firm"
+        href={asset('/obsluga-firm')}
         class="rounded-2xl bg-white px-5 py-3 font-bold text-brand ring-1 ring-brand/15"
       >
         Obsługa firm
       </a>
       <a
-        href="/kontakt"
+        href={asset('/kontakt')}
         class="rounded-2xl bg-white px-5 py-3 font-bold text-brand ring-1 ring-brand/15"
       >
         Kontakt

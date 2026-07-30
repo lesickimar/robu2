@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Section from '../components/Section.astro';
-import { site, telHref, fullAddress } from '../lib/site';
+import { site, telHref, fullAddress, asset } from '../lib/site';
 ---
 
 <BaseLayout
@@ -83,11 +83,11 @@ import { site, telHref, fullAddress } from '../lib/site';
           </a>
         </div>
         <p class="mt-6 text-sm text-white/70">
-          <a href="/marki" class="underline hover:text-white">Marki w ofercie</a>
+          <a href={asset('/marki')} class="underline hover:text-white">Marki w ofercie</a>
           {' · '}
-          <a href="/kosze-prezentowe" class="underline hover:text-white">Kosze</a>
+          <a href={asset('/kosze-prezentowe')} class="underline hover:text-white">Kosze</a>
           {' · '}
-          <a href="/paczki-prezentowe" class="underline hover:text-white">Paczki</a>
+          <a href={asset('/paczki-prezentowe')} class="underline hover:text-white">Paczki</a>
         </p>
       </div>
     </div>

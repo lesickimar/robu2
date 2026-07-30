@@ -1,11 +1,11 @@
 ---
-import { site, fullAddress, telHref } from '../lib/site';
+import { site, fullAddress, telHref, asset } from '../lib/site';
 ---
 
 <footer class="mt-16 border-t border-brand/10 bg-white">
   <div class="mx-auto grid max-w-6xl gap-8 px-4 py-10 md:grid-cols-3">
     <div>
-      <img src="/logo.svg" alt="ROBU2" class="mb-3 h-8 w-auto" width="160" height="28" />
+      <img src={asset('/logo.svg')} alt="ROBU2" class="mb-3 h-8 w-auto" width="160" height="28" />
       <p class="text-sm text-muted">{site.tagline}</p>
     </div>
     <div>
@@ -24,12 +24,12 @@ import { site, fullAddress, telHref } from '../lib/site';
     <div>
       <p class="mb-2 text-sm font-bold text-brand">Nawigacja</p>
       <ul class="space-y-1 text-sm text-ink/80">
-        <li><a class="hover:text-brand" href="/o-nas">O nas</a></li>
-        <li><a class="hover:text-brand" href="/obsluga-firm">Obsługa firm</a></li>
-        <li><a class="hover:text-brand" href="/marki">Marki</a></li>
-        <li><a class="hover:text-brand" href="/kosze-prezentowe">Kosze prezentowe</a></li>
-        <li><a class="hover:text-brand" href="/paczki-prezentowe">Paczki prezentowe</a></li>
-        <li><a class="hover:text-brand" href="/kontakt">Kontakt</a></li>
+        <li><a class="hover:text-brand" href={asset('/o-nas')}>O nas</a></li>
+        <li><a class="hover:text-brand" href={asset('/obsluga-firm')}>Obsługa firm</a></li>
+        <li><a class="hover:text-brand" href={asset('/marki')}>Marki</a></li>
+        <li><a class="hover:text-brand" href={asset('/kosze-prezentowe')}>Kosze prezentowe</a></li>
+        <li><a class="hover:text-brand" href={asset('/paczki-prezentowe')}>Paczki prezentowe</a></li>
+        <li><a class="hover:text-brand" href={asset('/kontakt')}>Kontakt</a></li>
       </ul>
     </div>
   </div>

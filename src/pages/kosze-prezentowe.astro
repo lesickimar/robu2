@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Section from '../components/Section.astro';
 import BasketCard from '../components/BasketCard.astro';
-import { allBaskets, telHref } from '../lib/site';
+import { allBaskets, telHref, asset } from '../lib/site';
 
 const baskets = allBaskets();
 ---
@@ -38,7 +38,7 @@ const baskets = allBaskets();
           Zadzwoń
         </a>
         <a
-          href="/paczki-prezentowe"
+          href={asset('/paczki-prezentowe')}
           class="rounded-2xl bg-white/15 px-5 py-3 font-bold text-white ring-1 ring-white/30 hover:bg-white/25"
         >
           Zobacz paczki
