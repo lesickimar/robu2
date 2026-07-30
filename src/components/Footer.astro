@@ -18,6 +18,7 @@ import { site, fullAddress, telHref, asset } from '../lib/site';
           <a class="hover:text-cta" href={`mailto:${site.email}`}>{site.email}</a>
         </li>
         <li>{fullAddress()}</li>
+        <li>NIP {site.nip}</li>
         <li>{site.hours}</li>
       </ul>
     </div>
@@ -34,6 +35,6 @@ import { site, fullAddress, telHref, asset } from '../lib/site';
     </div>
   </div>
   <div class="border-t border-brand/5 py-4 text-center text-xs text-muted">
-    © {new Date().getFullYear()} {site.name} · Garwolin
+    © {new Date().getFullYear()} {site.name} · NIP {site.nip} · Garwolin
   </div>
 </footer>
