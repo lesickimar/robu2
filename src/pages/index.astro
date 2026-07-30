@@ -130,20 +130,33 @@ const gifts = [
           Gotowe zestawy lub skomponujemy prezent pod Twoje potrzeby.
         </p>
       </div>
-      <div class="flex flex-wrap gap-x-4 gap-y-1">
+      <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
         <a href={asset('/kosze-prezentowe')} class="font-bold text-brand hover:underline">
           Kosze →
         </a>
         <a href={asset('/paczki-prezentowe')} class="font-bold text-brand hover:underline">
           Paczki →
         </a>
+        {/* Mobile: thumb in the same row as Kosze/Paczki links */}
+        <div class="h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-[#e6dac5] sm:h-28 sm:w-28 lg:hidden">
+          <video
+            class="h-full w-full object-cover pointer-events-none"
+            src={asset('/kosz_video.mp4')}
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            data-autoplay-half
+            aria-label="Animacja pakowania kosza prezentowego"
+          ></video>
+        </div>
       </div>
     </div>
 
     <div class="flex flex-row items-center gap-3 sm:gap-4 lg:gap-8">
-      {/* Mobile/tablet: small thumb beside marquee; lg: larger teaser */}
+      {/* Desktop: larger teaser beside marquee */}
       <div
-        class="w-20 shrink-0 overflow-hidden rounded-xl bg-[#e6dac5] sm:w-24 lg:w-full lg:max-w-[300px] lg:rounded-2xl"
+        class="hidden w-full max-w-[300px] shrink-0 overflow-hidden rounded-2xl bg-[#e6dac5] lg:block"
       >
         <video
           class="aspect-square w-full object-cover pointer-events-none"
