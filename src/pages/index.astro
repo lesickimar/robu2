@@ -44,7 +44,7 @@ const gifts = [
     </div>
     <div class="relative mx-auto max-w-6xl px-4 py-16 md:py-24">
       <p class="mb-3 text-sm font-bold uppercase tracking-wide text-brand">
-        {site.address.city} i okolice
+        Garwolin i okolice
       </p>
       <h1 class="max-w-2xl text-4xl font-extrabold leading-tight text-ink md:text-5xl">
         Hurtownia spożywcza <span class="text-brand">Garwolin</span>
@@ -91,17 +91,14 @@ const gifts = [
             href: '/kosze-prezentowe',
           },
         ].map((u) => (
-          <li class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-brand/5">
-            <h2 class="text-lg font-bold text-brand">
-              {u.href ? (
-                <a href={asset(u.href)} class="hover:underline">
-                  {u.t}
-                </a>
-              ) : (
-                u.t
-              )}
-            </h2>
-            <p class="mt-2 text-sm text-muted">{u.d}</p>
+          <li>
+            <a
+              href={asset(u.href)}
+              class="block h-full rounded-2xl bg-white p-6 shadow-sm ring-1 ring-brand/5 transition hover:shadow-md hover:ring-brand/15"
+            >
+              <h2 class="text-lg font-bold text-brand">{u.t}</h2>
+              <p class="mt-2 text-sm text-muted">{u.d}</p>
+            </a>
           </li>
         ))
       }
