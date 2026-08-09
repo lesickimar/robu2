@@ -3,7 +3,7 @@ import type { Basket } from '../lib/site';
 import { telHref, asset } from '../lib/site';
 
 interface Props {
-  basket: Basket;
+  basket: Basket & { badge?: string };
 }
 
 const { basket } = Astro.props;
@@ -33,4 +33,11 @@ const { basket } = Astro.props;
   >
     Zapytaj
   </a>
+{
+  basket.badge && (
+    <span class="absolute right-3 top-3 rounded-full bg-brand/85 px-3 py-1 text-xs font-bold text-white shadow ring-1 ring-white/20 backdrop-blur transition-opacity duration-200 opacity-100 md:opacity-0 md:group-hover:opacity-100">
+      {basket.badge}
+    </span>
+  )
+}
 </article>

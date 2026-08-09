@@ -7,7 +7,8 @@
       "image": "/images/kosze/kosz1.webp",
       "hasAlcohol": false,
       "featured": true,
-      "order": 1
+      "order": 1,
+      "badge": "19l"
     },
     {
       "id": "biala-skrzynka",
@@ -16,7 +17,8 @@
       "image": "/images/kosze/kosz2.webp",
       "hasAlcohol": false,
       "featured": true,
-      "order": 2
+      "order": 2,
+      "badge": "12l"
     },
     {
       "id": "bordowy-swiateczny",
@@ -25,7 +27,8 @@
       "image": "/images/kosze/kosz3.webp",
       "hasAlcohol": false,
       "featured": true,
-      "order": 3
+      "order": 3,
+      "badge": "19l"
     },
     {
       "id": "box-slodycze",
