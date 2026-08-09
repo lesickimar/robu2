@@ -4,6 +4,8 @@ import Section from '../components/Section.astro';
 import BrandMarquee from '../components/BrandMarquee.astro';
 import GiftMarquee from '../components/GiftMarquee.astro';
 import MapEmbed from '../components/MapEmbed.astro';
+import fs from 'node:fs';
+import path from 'node:path';
 import {
   site,
   activeBrands,
@@ -15,20 +17,23 @@ import {
 } from '../lib/site';
 
 const brands = activeBrands();
-const gifts = [
-  ...allBaskets().map((b) => ({
-    id: `b-${b.id}`,
-    title: b.title,
-    image: b.image,
-    href: '/kosze-prezentowe',
-  })),
-  ...allPackages().map((p) => ({
-    id: `p-${p.id}`,
-    title: p.title,
-    image: p.image,
-    href: '/paczki-prezentowe',
-  })),
-];
+// Wszystkie zdjęcia z public/images/kosze trafiają do suwaka; tytuł i link
+// bierzemy z baskets.json / packages.json (każde zdjęcie ma tam swój wpis).
+// ponytail: build-time readdir — wystarczy wrzucić nowe zdjęcie do folderu.
+const giftMeta = new Map<string, { title: string; href: string }>();
+for (const b of allBaskets()) giftMeta.set(b.image, { title: b.title, href: '/kosze-prezentowe' });
+for (const p of allPackages()) giftMeta.set(p.image, { title: p.title, href: '/paczki-prezentowe' });
+
+const koszeDir = path.join(process.cwd(), 'public', 'images', 'kosze');
+const koszeFiles = fs.existsSync(koszeDir)
+  ? fs.readdirSync(koszeDir).filter((f) => /\.(jpe?g|png|webp|avif)$/i.test(f)).sort()
+  : [];
+
+const gifts = koszeFiles.map((f, i) => {
+  const image = `/images/kosze/${f}`;
+  const meta = giftMeta.get(image) ?? { title: 'Kosze prezentowe', href: '/kosze-prezentowe' };
+  return { id: `g-${i}`, title: meta.title, image, href: meta.href };
+});
 ---
 
 <BaseLayout
@@ -72,7 +77,7 @@ const gifts = [
 
   <!-- USP -->
   <Section class="!pt-0 mt-5">
-    <ul class="grid gap-4 md:grid-cols-3">
+    <ul class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
       {
         [
           {
@@ -89,6 +94,11 @@ const gifts = [
             t: 'Kosze prezentowe',
             d: 'Słodycze i gotowe zestawy — na firmę, święta i okazje prywatne.',
             href: '/kosze-prezentowe',
+          },
+          {
+            t: 'Paczki świąteczne',
+            d: 'Paczki prezentowe dla pracowników firm i zakładów pracy — na święta i okazje firmowe.',
+            href: '/paczki-prezentowe',
           },
         ].map((u) => (
           <li>

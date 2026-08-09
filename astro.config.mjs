@@ -4,11 +4,12 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
-// GitHub Pages preview: https://lesickimar.github.io/robu2/
-// Produkcja (robu2.pl): site: 'https://robu2.pl', base: '/'
+// site/base sterowane env, żeby działać na różnych hostingach z jednego repo.
+// Domyślnie produkcja (root domeny, np. robu2.pl na Cloudflare): site=robu2.pl, base=/.
+// Podgląd GitHub Pages ustawia BASE_PATH=/robu2 + SITE_URL w .github/workflows/deploy.yml.
 export default defineConfig({
-  site: 'https://lesickimar.github.io',
-  base: '/robu2',
+  site: process.env.SITE_URL || 'https://robu2.pl',
+  base: process.env.BASE_PATH || '/',
   vite: {
     plugins: [tailwindcss()],
   },

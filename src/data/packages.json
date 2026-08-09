@@ -4,7 +4,7 @@
       "id": "box-slodycze",
       "title": "Box ze słodyczami",
       "description": "Elegancki box upominkowy pełen słodyczy i przekąsek — gotowy do wręczenia.",
-      "image": "/images/kosze/08.jpg",
+      "image": "/images/kosze/08.webp",
       "hasAlcohol": false,
       "featured": true,
       "order": 1
@@ -13,7 +13,7 @@
       "id": "elegancki-box",
       "title": "Elegancki box prezentowy",
       "description": "Wyrafinowany zestaw słodyczy w stylowym opakowaniu — na firmę i specjalne okazje.",
-      "image": "/images/kosze/10.jpg",
+      "image": "/images/kosze/10.webp",
       "hasAlcohol": false,
       "featured": true,
       "order": 2
@@ -22,10 +22,28 @@
       "id": "slodycze-worek",
       "title": "Worek ze słodyczami",
       "description": "Kolorowy worek pełen popularnych słodyczy — lekki i wygodny prezent.",
-      "image": "/images/kosze/ROBU0006.jpg",
+      "image": "/images/kosze/ROBU0006.webp",
       "hasAlcohol": false,
       "featured": true,
       "order": 3
+    },
+    {
+      "id": "kartonik-balwanek",
+      "title": "Kartonik bałwanek",
+      "description": "Świąteczny kartonik ze słodyczami — słodki upominek dla najmłodszych.",
+      "image": "/images/kosze/01.webp",
+      "hasAlcohol": false,
+      "featured": true,
+      "order": 4
+    },
+    {
+      "id": "kremowy-box",
+      "title": "Kremowy box świąteczny",
+      "description": "Elegancki box ze słodyczami w świątecznej oprawie — gotowy prezent na święta.",
+      "image": "/images/kosze/05.webp",
+      "hasAlcohol": false,
+      "featured": true,
+      "order": 5
     }
   ]
 }

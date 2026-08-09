@@ -1,28 +1,328 @@
 {
   "items": [
-    { "name": "Hortex", "logo": "/marki/hortex.png", "order": 1, "active": true },
-    { "name": "Winiary", "logo": "/marki/winiary.png", "order": 2, "active": true },
-    { "name": "Wedel", "logo": "/marki/wedel.png", "order": 3, "active": true },
-    { "name": "Nestlé", "logo": "/marki/nestle.png", "order": 4, "active": true },
-    { "name": "Hellmann's", "logo": "/marki/hellmanns.jpg", "order": 5, "active": true },
-    { "name": "Knorr", "logo": "/marki/knorr.jpg", "order": 6, "active": true },
-    { "name": "Tymbark", "logo": "/marki/tymbark.png", "order": 7, "active": true },
-    { "name": "Cisowianka", "logo": "/marki/cisowianka.png", "order": 8, "active": true },
-    { "name": "Prymat", "logo": "/marki/prymat.png", "order": 9, "active": true },
-    { "name": "Delecta", "logo": "/marki/delecta.png", "order": 10, "active": true },
-    { "name": "Herbapol", "logo": "/marki/herbapol.png", "order": 11, "active": true },
-    { "name": "Lubella", "logo": "/marki/lubella.png", "order": 12, "active": true },
-    { "name": "Dr. Oetker", "logo": "/marki/dr-oetker.png", "order": 13, "active": true },
-    { "name": "Milka", "logo": "/marki/milka.png", "order": 14, "active": true },
-    { "name": "Coca-Cola", "logo": "/marki/coca-cola.webp", "order": 15, "active": true },
-    { "name": "7DAYS", "logo": "/marki/7days.jpg", "order": 16, "active": true },
-    { "name": "Kubuś", "logo": "/marki/kubus.png", "order": 17, "active": true },
-    { "name": "Łowicz", "logo": "/marki/lowicz.png", "order": 18, "active": true },
-    { "name": "Nałęczowianka", "logo": "/marki/naleczowianka.jpg", "order": 19, "active": true },
-    { "name": "Kamis", "logo": "/marki/kamis.png", "order": 20, "active": true },
-    { "name": "Helio", "logo": "/marki/helio.png", "order": 21, "active": true },
-    { "name": "Fanex", "logo": "/marki/fanex.png", "order": 22, "active": true },
-    { "name": "Ahmad Tea", "logo": "/marki/ahmad-tea.jpg", "order": 23, "active": true },
-    { "name": "Hellena", "logo": "/marki/hellena.png", "order": 24, "active": true }
+    {
+      "name": "7DAYS",
+      "logo": "/marki/7days.webp",
+      "order": 1,
+      "active": true
+    },
+    {
+      "name": "Ahmad Tea",
+      "logo": "/marki/ahmad-tea.webp",
+      "order": 2,
+      "active": true
+    },
+    {
+      "name": "Akbar",
+      "logo": "/marki/akbar.webp",
+      "order": 3,
+      "active": true
+    },
+    {
+      "name": "Aksam",
+      "logo": "/marki/aksam.webp",
+      "order": 4,
+      "active": true
+    },
+    {
+      "name": "As Babuni",
+      "logo": "/marki/as-babuni.webp",
+      "order": 5,
+      "active": true
+    },
+    {
+      "name": "Augustowianka",
+      "logo": "/marki/augustowianka.webp",
+      "order": 6,
+      "active": true
+    },
+    {
+      "name": "Bi Fix",
+      "logo": "/marki/bi-fix.webp",
+      "order": 7,
+      "active": true
+    },
+    {
+      "name": "Black",
+      "logo": "/marki/black.webp",
+      "order": 8,
+      "active": true
+    },
+    {
+      "name": "Bona",
+      "logo": "/marki/bona.webp",
+      "order": 9,
+      "active": true
+    },
+    {
+      "name": "Chelton",
+      "logo": "/marki/chelton.webp",
+      "order": 10,
+      "active": true
+    },
+    {
+      "name": "Cisowianka",
+      "logo": "/marki/cisowianka.webp",
+      "order": 11,
+      "active": true
+    },
+    {
+      "name": "Dawtona",
+      "logo": "/marki/dawtona.webp",
+      "order": 12,
+      "active": true
+    },
+    {
+      "name": "Decomoreno",
+      "logo": "/marki/decomoreno.webp",
+      "order": 13,
+      "active": true
+    },
+    {
+      "name": "Delecta",
+      "logo": "/marki/delecta.webp",
+      "order": 14,
+      "active": true
+    },
+    {
+      "name": "Dilmah",
+      "logo": "/marki/dilmah.webp",
+      "order": 15,
+      "active": true
+    },
+    {
+      "name": "Food Care",
+      "logo": "/marki/food-care.webp",
+      "order": 16,
+      "active": true
+    },
+    {
+      "name": "Frugo",
+      "logo": "/marki/frugo.webp",
+      "order": 17,
+      "active": true
+    },
+    {
+      "name": "Goliard",
+      "logo": "/marki/goliard.webp",
+      "order": 18,
+      "active": true
+    },
+    {
+      "name": "Gusto",
+      "logo": "/marki/gusto.webp",
+      "order": 19,
+      "active": true
+    },
+    {
+      "name": "Helio",
+      "logo": "/marki/helio.webp",
+      "order": 20,
+      "active": true
+    },
+    {
+      "name": "Hellena",
+      "logo": "/marki/hellena.webp",
+      "order": 21,
+      "active": true
+    },
+    {
+      "name": "Herbapol",
+      "logo": "/marki/herbapol.webp",
+      "order": 22,
+      "active": true
+    },
+    {
+      "name": "Kamis",
+      "logo": "/marki/kamis.webp",
+      "order": 23,
+      "active": true
+    },
+    {
+      "name": "Knorr",
+      "logo": "/marki/knorr.webp",
+      "order": 24,
+      "active": true
+    },
+    {
+      "name": "KP",
+      "logo": "/marki/kp.webp",
+      "order": 25,
+      "active": true
+    },
+    {
+      "name": "Kubuś",
+      "logo": "/marki/kubus.webp",
+      "order": 26,
+      "active": true
+    },
+    {
+      "name": "Lallemand",
+      "logo": "/marki/lallemand.webp",
+      "order": 27,
+      "active": true
+    },
+    {
+      "name": "Levant",
+      "logo": "/marki/levant.webp",
+      "order": 28,
+      "active": true
+    },
+    {
+      "name": "Lipton",
+      "logo": "/marki/lipton.webp",
+      "order": 29,
+      "active": true
+    },
+    {
+      "name": "Lubella",
+      "logo": "/marki/lubella.webp",
+      "order": 30,
+      "active": true
+    },
+    {
+      "name": "Mlekpol",
+      "logo": "/marki/mlekpol.webp",
+      "order": 31,
+      "active": true
+    },
+    {
+      "name": "Mokate",
+      "logo": "/marki/mokate.webp",
+      "order": 32,
+      "active": true
+    },
+    {
+      "name": "Mondelez",
+      "logo": "/marki/mondelez.webp",
+      "order": 33,
+      "active": true
+    },
+    {
+      "name": "Muszynianka",
+      "logo": "/marki/muszynianka.webp",
+      "order": 34,
+      "active": true
+    },
+    {
+      "name": "Nestlé",
+      "logo": "/marki/nestle.webp",
+      "order": 35,
+      "active": true
+    },
+    {
+      "name": "Oshee",
+      "logo": "/marki/oshee.webp",
+      "order": 36,
+      "active": true
+    },
+    {
+      "name": "Perlage",
+      "logo": "/marki/perlage.webp",
+      "order": 37,
+      "active": true
+    },
+    {
+      "name": "Polgreen",
+      "logo": "/marki/polgreen.webp",
+      "order": 38,
+      "active": true
+    },
+    {
+      "name": "Polmak",
+      "logo": "/marki/polmak.webp",
+      "order": 39,
+      "active": true
+    },
+    {
+      "name": "Prymat",
+      "logo": "/marki/prymat.webp",
+      "order": 40,
+      "active": true
+    },
+    {
+      "name": "Roleski",
+      "logo": "/marki/roleski.webp",
+      "order": 41,
+      "active": true
+    },
+    {
+      "name": "Rybak",
+      "logo": "/marki/rybak.webp",
+      "order": 42,
+      "active": true
+    },
+    {
+      "name": "Sante",
+      "logo": "/marki/sante.webp",
+      "order": 43,
+      "active": true
+    },
+    {
+      "name": "Siedlce",
+      "logo": "/marki/siedlce.webp",
+      "order": 44,
+      "active": true
+    },
+    {
+      "name": "Solidarność",
+      "logo": "/marki/solidarnosc.webp",
+      "order": 45,
+      "active": true
+    },
+    {
+      "name": "Styaruss",
+      "logo": "/marki/styaruss.webp",
+      "order": 46,
+      "active": true
+    },
+    {
+      "name": "Tago",
+      "logo": "/marki/tago.webp",
+      "order": 47,
+      "active": true
+    },
+    {
+      "name": "Tarczyn",
+      "logo": "/marki/tarczyn.webp",
+      "order": 48,
+      "active": true
+    },
+    {
+      "name": "Tchibo",
+      "logo": "/marki/tchibo.webp",
+      "order": 49,
+      "active": true
+    },
+    {
+      "name": "Tymbark",
+      "logo": "/marki/tymbark.webp",
+      "order": 50,
+      "active": true
+    },
+    {
+      "name": "Wedel",
+      "logo": "/marki/wedel.webp",
+      "order": 51,
+      "active": true
+    },
+    {
+      "name": "ZM Jelonki",
+      "logo": "/marki/zm-jelonki.webp",
+      "order": 52,
+      "active": true
+    },
+    {
+      "name": "Łowicz",
+      "logo": "/marki/lowicz.webp",
+      "order": 53,
+      "active": true
+    },
+    {
+      "name": "Żywiec",
+      "logo": "/marki/zywiec.webp",
+      "order": 54,
+      "active": true
+    }
   ]
 }

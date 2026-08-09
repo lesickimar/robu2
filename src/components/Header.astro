@@ -49,11 +49,55 @@ function active(href: string) {
       </a>
     </nav>
 
-    <a
-      href={telHref()}
-      class="rounded-xl bg-cta px-3 py-2 text-sm font-bold text-white md:hidden"
-    >
-      Zadzwoń
-    </a>
+    <div class="flex items-center gap-2 md:hidden">
+      <a
+        href={telHref()}
+        class="rounded-xl bg-cta px-3 py-2 text-sm font-bold text-white"
+        aria-label={`Zadzwoń ${site.phoneDisplay}`}
+      >
+        Zadzwoń
+      </a>
+      <details id="mobile-nav">
+        <summary
+          class="flex h-9 w-9 cursor-pointer list-none items-center justify-center rounded-xl border border-brand/15 bg-white text-brand [&::-webkit-details-marker]:hidden"
+          aria-label="Otwórz menu"
+        >
+          <span class="mobile-nav__open text-lg leading-none" aria-hidden="true">☰</span>
+          <span class="mobile-nav__close text-lg leading-none" aria-hidden="true">✕</span>
+        </summary>
+        <nav
+          class="absolute inset-x-0 top-full bg-cream p-2 shadow-lg"
+          aria-label="Mobilne"
+        >
+          {
+            links.map((l) => (
+              <a
+                href={asset(l.href)}
+                class:list={[
+                  'block rounded-xl px-4 py-3 text-base font-semibold',
+                  active(l.href)
+                    ? 'bg-brand/10 text-brand'
+                    : 'text-ink/80 hover:bg-brand/5 hover:text-brand',
+                ]}
+              >
+                {l.label}
+              </a>
+            ))
+          }
+        </nav>
+      </details>
+    </div>
   </div>
 </header>
+
+<style>
+  #mobile-nav .mobile-nav__close {
+    display: none;
+  }
+  #mobile-nav[open] .mobile-nav__open {
+    display: none;
+  }
+  #mobile-nav[open] .mobile-nav__close {
+    display: inline;
+  }
+</style>

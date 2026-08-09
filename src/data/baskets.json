@@ -4,7 +4,7 @@
       "id": "slodki-klasyczny",
       "title": "Kosz słodki klasyczny",
       "description": "Zestaw słodyczy znanych marek — idealny na upominek firmowy lub okazję rodzinną.",
-      "image": "/images/kosze/kosz.jpg",
+      "image": "/images/kosze/kosz.webp",
       "hasAlcohol": false,
       "featured": true,
       "order": 1
@@ -13,7 +13,7 @@
       "id": "premium-slodycze",
       "title": "Kosz premium ze słodyczami",
       "description": "Wyselekcjonowane czekolady i przysmaki w eleganckim opakowaniu.",
-      "image": "/images/kosze/ROBU0001.jpg",
+      "image": "/images/kosze/ROBU0001.webp",
       "hasAlcohol": false,
       "featured": true,
       "order": 2
@@ -22,10 +22,37 @@
       "id": "swiateczny",
       "title": "Kosz świąteczny",
       "description": "Słodycze w świątecznej oprawie — na firmowe i rodzinne okazje.",
-      "image": "/images/kosze/ROBU0003.jpg",
+      "image": "/images/kosze/ROBU0003.webp",
       "hasAlcohol": false,
       "featured": true,
       "order": 3
+    },
+    {
+      "id": "zloty-delikatesowy",
+      "title": "Złoty box delikatesowy",
+      "description": "Bogaty zestaw delikatesów i słodyczy w eleganckim, złotym opakowaniu.",
+      "image": "/images/kosze/kosz1.webp",
+      "hasAlcohol": false,
+      "featured": true,
+      "order": 4
+    },
+    {
+      "id": "biala-skrzynka",
+      "title": "Biała skrzynka prezentowa",
+      "description": "Efektowna skrzynka z wyselekcjonowanymi smakołykami — prezent na wyjątkową okazję.",
+      "image": "/images/kosze/kosz2.webp",
+      "hasAlcohol": false,
+      "featured": true,
+      "order": 5
+    },
+    {
+      "id": "bordowy-swiateczny",
+      "title": "Bordowy box świąteczny",
+      "description": "Świąteczny zestaw słodyczy w bordowym wykończeniu — gotowy upominek.",
+      "image": "/images/kosze/kosz3.webp",
+      "hasAlcohol": false,
+      "featured": true,
+      "order": 6
     }
   ]
 }
