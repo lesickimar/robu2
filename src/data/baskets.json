@@ -26,33 +26,6 @@
       "hasAlcohol": false,
       "featured": true,
       "order": 3
-    },
-    {
-      "id": "zloty-delikatesowy",
-      "title": "Złoty box delikatesowy",
-      "description": "Bogaty zestaw delikatesów i słodyczy w eleganckim, złotym opakowaniu.",
-      "image": "/images/kosze/kosz1.webp",
-      "hasAlcohol": false,
-      "featured": true,
-      "order": 4
-    },
-    {
-      "id": "biala-skrzynka",
-      "title": "Biała skrzynka prezentowa",
-      "description": "Efektowna skrzynka z wyselekcjonowanymi smakołykami — prezent na wyjątkową okazję.",
-      "image": "/images/kosze/kosz2.webp",
-      "hasAlcohol": false,
-      "featured": true,
-      "order": 5
-    },
-    {
-      "id": "bordowy-swiateczny",
-      "title": "Bordowy box świąteczny",
-      "description": "Świąteczny zestaw słodyczy w bordowym wykończeniu — gotowy upominek.",
-      "image": "/images/kosze/kosz3.webp",
-      "hasAlcohol": false,
-      "featured": true,
-      "order": 6
     }
   ]
 }

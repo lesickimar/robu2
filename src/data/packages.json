@@ -1,13 +1,40 @@
 {
   "items": [
     {
+      "id": "zloty-delikatesowy",
+      "title": "Złoty box delikatesowy",
+      "description": "Bogaty zestaw delikatesów i słodyczy w eleganckim, złotym opakowaniu.",
+      "image": "/images/kosze/kosz1.webp",
+      "hasAlcohol": false,
+      "featured": true,
+      "order": 1
+    },
+    {
+      "id": "biala-skrzynka",
+      "title": "Biała skrzynka prezentowa",
+      "description": "Efektowna skrzynka z wyselekcjonowanymi smakołykami — prezent na wyjątkową okazję.",
+      "image": "/images/kosze/kosz2.webp",
+      "hasAlcohol": false,
+      "featured": true,
+      "order": 2
+    },
+    {
+      "id": "bordowy-swiateczny",
+      "title": "Bordowy box świąteczny",
+      "description": "Świąteczny zestaw słodyczy w bordowym wykończeniu — gotowy upominek.",
+      "image": "/images/kosze/kosz3.webp",
+      "hasAlcohol": false,
+      "featured": true,
+      "order": 3
+    },
+    {
       "id": "box-slodycze",
       "title": "Box ze słodyczami",
       "description": "Elegancki box upominkowy pełen słodyczy i przekąsek — gotowy do wręczenia.",
       "image": "/images/kosze/08.webp",
       "hasAlcohol": false,
       "featured": true,
-      "order": 1
+      "order": 4
     },
     {
       "id": "elegancki-box",
@@ -16,7 +43,7 @@
       "image": "/images/kosze/10.webp",
       "hasAlcohol": false,
       "featured": true,
-      "order": 2
+      "order": 5
     },
     {
       "id": "slodycze-worek",
@@ -25,7 +52,7 @@
       "image": "/images/kosze/ROBU0006.webp",
       "hasAlcohol": false,
       "featured": true,
-      "order": 3
+      "order": 6
     },
     {
       "id": "kartonik-balwanek",
@@ -34,7 +61,7 @@
       "image": "/images/kosze/01.webp",
       "hasAlcohol": false,
       "featured": true,
-      "order": 4
+      "order": 7
     },
     {
       "id": "kremowy-box",
@@ -43,7 +70,7 @@
       "image": "/images/kosze/05.webp",
       "hasAlcohol": false,
       "featured": true,
-      "order": 5
+      "order": 8
     }
   ]
 }
