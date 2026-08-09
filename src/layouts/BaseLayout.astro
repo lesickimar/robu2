@@ -93,7 +93,7 @@ const jsonLd = {
       // Udostępnij arkusz: „każdy z linkiem — podgląd". ID arkusza wklej w data-sheet-id wyżej.
       const el = document.getElementById('site-banner');
       const BANNER_SHEET_ID = el?.dataset.sheetId || '';
-      if (BANNER_SHEET_ID) {
+      if (BANNER_SHEET_ID && !sessionStorage.getItem('banner_dismissed')) {
         const esc = (s) =>
           String(s).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
         fetch(`https://docs.google.com/spreadsheets/d/${BANNER_SHEET_ID}/gviz/tq?tqx=out:json`)
@@ -110,7 +110,37 @@ const jsonLd = {
               String(row.active).trim().toLowerCase(),
             );
             if (!on || !row.text) return;
-            el.innerHTML = `<div class="bg-brand px-4 py-2.5 text-center text-sm font-semibold text-white">${esc(row.text)}</div>`;
+            el.innerHTML = `
+              <div data-banner-backdrop class="fixed inset-0 z-[60] flex items-center justify-center bg-black/50 p-4">
+                <div class="w-full max-w-md overflow-hidden rounded-2xl bg-white shadow-2xl" role="dialog" aria-modal="true" aria-label="Ogłoszenie">
+                  <div class="flex items-center justify-between bg-brand px-5 py-3 text-white">
+                    <span class="font-bold">Ogłoszenie</span>
+                    <button type="button" class="-mr-1 rounded-lg px-2 text-2xl leading-none hover:bg-white/20" aria-label="Zamknij" data-banner-close>×</button>
+                  </div>
+                  <div class="p-5">
+                    <p class="text-ink">${esc(row.text)}</p>
+                    <button type="button" class="mt-4 rounded-xl bg-brand px-4 py-2 text-sm font-bold text-white hover:bg-brand-dark" data-banner-close>OK</button>
+                  </div>
+                </div>
+              </div>`;
+            const close = () => {
+              el.innerHTML = '';
+              sessionStorage.setItem('banner_dismissed', '1');
+            };
+            el.querySelectorAll('[data-banner-close]').forEach((b) =>
+              b.addEventListener('click', close),
+            );
+            const backdrop = el.querySelector('[data-banner-backdrop]');
+            backdrop?.addEventListener('click', (e) => {
+              if (e.target === backdrop) close();
+            });
+            const onKey = (ev) => {
+              if (ev.key === 'Escape') {
+                close();
+                document.removeEventListener('keydown', onKey);
+              }
+            };
+            document.addEventListener('keydown', onKey);
           })
           .catch(() => {});
       }
