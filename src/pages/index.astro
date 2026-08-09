@@ -215,6 +215,8 @@ const gifts = koszeFiles.map((f, i) => {
           {fullAddress()}
           <br />
           {site.hours}
+          <br />
+          <a href={`mailto:${site.email}`} class="underline hover:text-white">{site.email}</a>
         </p>
         <ul class="mt-6 list-inside list-disc space-y-1 text-sm text-white/90">
           <li>Sklepy spożywcze i convenience</li>
