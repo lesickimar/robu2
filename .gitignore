@@ -29,5 +29,6 @@ pnpm-debug.log*
 # local source assets (heavy; site uses public/)
 _kosze/
 loga_firm/
+katalog/
 *.orig.mp4
 public/kosz_video.orig.mp4

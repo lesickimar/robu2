@@ -1,0 +1,46 @@
+{
+  "title": "Gazetka promocyjna",
+  "description": "Paczki świąteczne dla pracowników, dzieci i kontrahentów. Zestawy w różnych przedziałach cenowych, opakowania kartonowe i foliowe.",
+  "pages": [
+    {
+      "image": "/images/gazetka/01.webp",
+      "alt": "Okładka gazetki ROBU2 — hurtownia spożywcza",
+      "order": 1
+    },
+    {
+      "image": "/images/gazetka/02.webp",
+      "alt": "Paczki świąteczne — zestawy w różnych przedziałach cenowych dla pracowników, dzieci i kontrahentów",
+      "order": 2
+    },
+    {
+      "image": "/images/gazetka/03.webp",
+      "alt": "Propozycja paczki świątecznej ze słodyczami, pakowana w reklamówkę świąteczną",
+      "order": 3
+    },
+    {
+      "image": "/images/gazetka/04.webp",
+      "alt": "Propozycja paczki świątecznej z Wedlem, Kinder, Oreo i Toffifee",
+      "order": 4
+    },
+    {
+      "image": "/images/gazetka/05.webp",
+      "alt": "Propozycja paczki świątecznej — Wedel Ptasie mleczko, Nussbeisser, Kit Kat, Śmiejżelki",
+      "order": 5
+    },
+    {
+      "image": "/images/gazetka/06.webp",
+      "alt": "Propozycja paczki pakowanej w reklamówkę — Merci, Milka Pieguski, Kinder, Jeżyki",
+      "order": 6
+    },
+    {
+      "image": "/images/gazetka/07.webp",
+      "alt": "Propozycja paczki świątecznej — Nutella, Merci, Tago Kardynałki, Kinder Schoko Bons",
+      "order": 7
+    },
+    {
+      "image": "/images/gazetka/08.webp",
+      "alt": "Tylna okładka gazetki — opakowania kartonowe i foliowe, zamówienia, kontakt do hurtowni",
+      "order": 8
+    }
+  ]
+}
