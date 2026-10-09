@@ -75,3 +75,31 @@ collections:
               - { name: hasAlcohol, label: Z alkoholem, widget: boolean, default: false }
               - { name: featured, label: Na homepage, widget: boolean, default: true }
               - { name: order, label: Kolejność, widget: number, value_type: int }
+
+  - name: gazetka
+    label: Gazetka
+    files:
+      - name: gazetka
+        label: Strony gazetki
+        file: src/data/gazetka.json
+        fields:
+          - { name: title, label: Tytuł, widget: string }
+          - { name: description, label: Opis, widget: text }
+          - name: pages
+            label: Strony
+            widget: list
+            summary: '{{fields.alt}}'
+            fields:
+              - name: image
+                label: Skan strony
+                widget: image
+                hint: 'Plik z scripts/gazetka.sh, nazwa NN.webp. Warstwy -zoom i -thumb muszą leżeć obok.'
+              - { name: alt, label: Opis alternatywny, widget: string }
+              - { name: order, label: Kolejność, widget: number, value_type: int }
+
+# Skany gazetki przechodzą przez scripts/gazetka.sh. Limit chroni wagę repozytorium,
+# bo każda edycja gazetki zostaje w historii gita na zawsze.
+media_libraries:
+  default:
+    config:
+      max_file_size: 3000000

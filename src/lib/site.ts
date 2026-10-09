@@ -2,17 +2,20 @@ import site from '../data/site.json';
 import brandsData from '../data/brands.json';
 import basketsData from '../data/baskets.json';
 import packagesData from '../data/packages.json';
+import gazetkaData from '../data/gazetka.json';
 
 export type Site = typeof site;
 export type Brand = (typeof brandsData.items)[number];
 export type Basket = (typeof basketsData.items)[number];
 export type GiftPackage = (typeof packagesData.items)[number];
+export type GazetkaPage = (typeof gazetkaData.pages)[number];
 
 export { site };
 
 export const brands = brandsData.items;
 export const baskets = basketsData.items;
 export const packages = packagesData.items;
+export const gazetka = gazetkaData;
 
 /**
  * Prefix path with Astro `base` (e.g. `/robu2` on GitHub Pages).
@@ -51,6 +54,10 @@ export function featuredPackages() {
   return packages
     .filter((p) => p.featured)
     .sort((a, b) => a.order - b.order);
+}
+
+export function gazetkaPages() {
+  return [...gazetka.pages].sort((a, b) => a.order - b.order);
 }
 
 export function telHref() {

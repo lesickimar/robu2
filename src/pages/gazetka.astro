@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import GazetkaFlip from '../components/GazetkaFlip.astro';
+import { site, telHref, asset } from '../lib/site';
+
+const ingredients = [
+  'Wedel Ptasie mleczko',
+  'Merci',
+  'Toffifee',
+  'Kinder Bueno',
+  'Kinder czekoladki',
+  'Oreo',
+  'Delicje pomarańczowe',
+  'Prince Polo XXL',
+  'Haribo Złote Misie',
+  'Mamba',
+  'Jeżyki classic',
+  'Śmiejżelki',
+  'Tago Piernikowe serca',
+  'Tago Kardynałki',
+  'Nutella',
+  'Milka Pieguski',
+  'Kit Kat',
+  'Knoppers',
+  'Nussbeisser',
+  'Pianka Jojo Marshmallow',
+  'Lizaki NIM 2',
+  'sok Tymbark',
+];
+---
+
+<BaseLayout
+  title="Gazetka promocyjna — paczki świąteczne | ROBU2"
+  description="Gazetka świąteczna ROBU2: propozycje paczek dla pracowników, dzieci i kontrahentów. Zestawy w różnych przedziałach cenowych, opakowania i zamówienia."
+  path="/gazetka"
+>
+  <Section>
+    <h1 class="text-4xl font-extrabold text-ink">Gazetka promocyjna — paczki świąteczne</h1>
+    <p class="mt-4 max-w-2xl text-muted">
+      Świąteczne zestawy dla pracowników, dzieci, kontrahentów i bliskich. Paczki w różnych
+      przedziałach cenowych, pakowane w karton, reklamówkę świąteczną lub torebkę foliową,
+      z możliwością dowolnej kompozycji.
+    </p>
+    <div class="mt-8"><GazetkaFlip /></div>
+  </Section>
+
+  <Section>
+    <h2 class="text-2xl font-extrabold text-ink">Co jest w gazetce</h2>
+    <p class="mt-4 max-w-3xl text-muted">
+      Gazetka liczy osiem stron. Okładka zapowiada ofertę paczek, strona druga opisuje zasady
+      komponowania zestawu, strony od trzeciej do siódmej pokazują konkretne propozycje paczek
+      ze składnikami, a strona ósma przedstawia opakowania i dane kontaktowe hurtowni.
+    </p>
+    <p class="mt-4 font-semibold text-ink">W skład zestawów wchodzą między innymi:</p>
+    <ul class="mt-3 grid gap-x-8 gap-y-1 text-muted sm:grid-cols-2 lg:grid-cols-3">
+      {ingredients.map((name) => <li>{name}</li>)}
+    </ul>
+  </Section>
+
+  <Section>
+    <div class="rounded-3xl bg-brand px-6 py-8 text-white md:px-10">
+      <h2 class="text-xl font-extrabold md:text-2xl">Zamów paczki z gazetki</h2>
+      <p class="mt-2 text-white/85">
+        Podaj liczbę paczek, budżet i termin — przygotujemy wycenę i dowóz na terenie Garwolina
+        i okolic.
+      </p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a
+          href={telHref()}
+          class="rounded-2xl bg-cta px-5 py-3 font-bold text-white hover:bg-cta-dark"
+        >
+          Zadzwoń: {site.phoneDisplay}
+        </a>
+        <a
+          href={asset('/paczki-prezentowe')}
+          class="rounded-2xl bg-white/15 px-5 py-3 font-bold text-white ring-1 ring-white/30 hover:bg-white/25"
+        >
+          Paczki prezentowe
+        </a>
+        <a
+          href={asset('/kosze-prezentowe')}
+          class="rounded-2xl bg-white/15 px-5 py-3 font-bold text-white ring-1 ring-white/30 hover:bg-white/25"
+        >
+          Kosze prezentowe
+        </a>
+      </div>
+    </div>
+  </Section>
+</BaseLayout>

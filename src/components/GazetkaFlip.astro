@@ -1,0 +1,795 @@
+---
+import { gazetkaPages, asset } from '../lib/site';
+
+const tier = (path, suffix) => asset(path.replace(/\.webp$/, `${suffix}.webp`));
+
+const pages = gazetkaPages().map((p) => ({
+  image: asset(p.image),
+  zoom: tier(p.image, '-zoom'),
+  thumb: tier(p.image, '-thumb'),
+  alt: p.alt,
+}));
+
+const leaves = Array.from({ length: Math.ceil(pages.length / 2) }, (_, i) => ({
+  front: pages[i * 2],
+  back: pages[i * 2 + 1] ?? null,
+}));
+---
+
+<div class="gazetka" id="gazetka" data-mode="spread">
+  <div class="bar">
+    <div class="brand">
+      <span class="brand__name">ROBU2</span>
+      <span class="brand__title">Gazetka promocyjna</span>
+    </div>
+    <div class="tools">
+      <button
+        type="button"
+        class="tool"
+        data-act="mode"
+        aria-label="Przełącz rozkładówkę i pojedynczą stronę">Rozkładówka</button
+      >
+      <button type="button" class="tool" data-act="zoom" aria-label="Powiększ widoczną stronę"
+        >Powiększ</button
+      >
+      <button type="button" class="tool" data-act="full" aria-label="Pełny ekran">Pełny ekran</button>
+    </div>
+  </div>
+
+  <div class="viewer">
+    <button type="button" class="nav nav--prev" data-act="prev" aria-label="Poprzednia strona">‹</button>
+    <div
+      class="book"
+      data-book
+      data-built="spread"
+      data-solo="right"
+      data-open="right"
+      role="region"
+      aria-label="Gazetka ROBU2"
+    >
+      <div class="book__shadow"></div>
+      {
+        leaves.map((leaf, i) => (
+          <div class="leaf" data-leaf={i}>
+            <div class="face face--front" data-page={i * 2}>
+              <img
+                src={leaf.front.image}
+                alt={leaf.front.alt}
+                decoding="async"
+                {...i === 0 ? { fetchpriority: 'high' } : { loading: 'lazy' }}
+              />
+            </div>
+            {leaf.back && (
+              <div class="face face--back" data-page={i * 2 + 1}>
+                <img src={leaf.back.image} alt={leaf.back.alt} decoding="async" loading="lazy" />
+              </div>
+            )}
+          </div>
+        ))
+      }
+    </div>
+    <button type="button" class="nav nav--next" data-act="next" aria-label="Następna strona">›</button>
+  </div>
+
+  <div class="rail">
+    <div class="rail__pages" data-rail>
+      {
+        pages.map((p, i) => (
+          <button type="button" class="thumb" data-goto={i} aria-label={`Strona ${i + 1}`}>
+            <img src={p.thumb} alt="" loading="lazy" decoding="async" />
+          </button>
+        ))
+      }
+    </div>
+    <div class="count" data-count aria-live="polite">1 / {pages.length}</div>
+  </div>
+
+  <div class="zoom" data-zoom hidden>
+    <div class="zoom__bar">
+      <strong data-zoom-title>Strona 1 z {pages.length}</strong>
+      <button type="button" class="tool" data-act="zoom-close">Zamknij (Esc)</button>
+    </div>
+    <div class="zoom__stage" data-zoom-stage>
+      <button
+        type="button"
+        class="nav nav--prev"
+        data-act="zoom-prev"
+        aria-label="Poprzednia strona">‹</button
+      >
+      <img data-zoom-img alt="" />
+      <button
+        type="button"
+        class="nav nav--next"
+        data-act="zoom-next"
+        aria-label="Następna strona">›</button
+      >
+    </div>
+  </div>
+</div>
+
+<script is:inline type="application/json" id="gazetka-data" set:html={JSON.stringify(pages)} />
+
+<script>
+  const root = document.getElementById('gazetka');
+  if (root) {
+    const PAGES = JSON.parse(document.getElementById('gazetka-data').textContent).map(
+      (page, index) => ({ ...page, index }),
+    );
+
+    const book = root.querySelector('[data-book]');
+    const rail = root.querySelector('[data-rail]');
+    const count = root.querySelector('[data-count]');
+    const prevBtn = root.querySelector('[data-act="prev"]');
+    const nextBtn = root.querySelector('[data-act="next"]');
+    const modeBtn = root.querySelector('[data-act="mode"]');
+    const zoomBtn = root.querySelector('[data-act="zoom"]');
+    const fullBtn = root.querySelector('[data-act="full"]');
+    const zoomBox = root.querySelector('[data-zoom]');
+    const zoomStage = root.querySelector('[data-zoom-stage]');
+    const zoomImg = root.querySelector('[data-zoom-img]');
+    const zoomTitle = root.querySelector('[data-zoom-title]');
+    const narrow = window.matchMedia('(max-width: 767px)');
+
+    let mode = narrow.matches ? 'single' : 'spread';
+    let leaf = 0;
+    let leaves = [];
+    let zoomAt = null;
+    let modeIsManual = false;
+
+    function buildLeaves() {
+      const step = mode === 'spread' ? 2 : 1;
+      leaves = [];
+      for (let i = 0; i < PAGES.length; i += step) {
+        leaves.push({ front: PAGES[i], back: mode === 'spread' ? PAGES[i + 1] ?? null : null });
+      }
+    }
+
+    function bindLoads(scope) {
+      scope.querySelectorAll('img').forEach((img) => {
+        if (img.complete && img.naturalWidth) img.classList.add('is-loaded');
+        img.addEventListener('load', () => img.classList.add('is-loaded'), { once: true });
+      });
+    }
+
+    const esc = (value) =>
+      String(value).replace(
+        /[&<>"]/g,
+        (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c],
+      );
+
+    function faceMarkup(page, kind, i) {
+      if (!page) return '';
+      const eager = i === 0 && kind === 'front';
+      return `<div class="face face--${kind}" data-page="${page.index}">
+          <img src="${esc(page.image)}" alt="${esc(page.alt)}" decoding="async"
+            ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} />
+        </div>`;
+    }
+
+    function render() {
+      book.querySelectorAll('.leaf').forEach((el) => el.remove());
+      const frag = document.createDocumentFragment();
+      leaves.forEach((l, i) => {
+        const el = document.createElement('div');
+        el.className = 'leaf';
+        el.dataset.leaf = String(i);
+        el.innerHTML = faceMarkup(l.front, 'front', i) + faceMarkup(l.back, 'back', i);
+        frag.appendChild(el);
+      });
+      book.appendChild(frag);
+      bindLoads(book);
+      if (leaf > leaves.length) leaf = leaves.length;
+      paint();
+    }
+
+    function visiblePages() {
+      if (leaf === 0) return [0];
+      if (leaf === leaves.length) return [PAGES.length - 1];
+      if (mode === 'single') return [leaf];
+      return [leaf * 2 - 1, leaf * 2];
+    }
+
+    function paint() {
+      [...book.querySelectorAll('.leaf')].forEach((el, i) => {
+        el.classList.toggle('is-flipped', i < leaf);
+        el.style.setProperty('--leaf-z', String(i < leaf ? i : leaves.length - i));
+      });
+      const visible = visiblePages();
+      book.dataset.solo =
+        mode === 'spread' && leaf === 0
+          ? 'right'
+          : mode === 'spread' && leaf === leaves.length
+            ? 'left'
+            : '';
+      book.dataset.open =
+        mode === 'single' || (leaf > 0 && leaf < leaves.length)
+          ? 'both'
+          : leaf === 0
+            ? 'right'
+            : 'left';
+      const from = visible[0] + 1;
+      const to = visible[visible.length - 1] + 1;
+      count.textContent =
+        from === to ? `${from} / ${PAGES.length}` : `${from}-${to} / ${PAGES.length}`;
+      prevBtn.disabled = leaf === 0;
+      nextBtn.disabled = leaf === leaves.length;
+      modeBtn.textContent = mode === 'spread' ? 'Rozkładówka' : 'Pojedyncza strona';
+      [...rail.children].forEach((t, i) =>
+        t.setAttribute('aria-current', String(visible.includes(i))),
+      );
+    }
+
+    function preload(from) {
+      [from, from + 1, from + 2].forEach((i) => {
+        const page = PAGES[i];
+        if (!page) return;
+        const img = new Image();
+        img.src = page.image;
+      });
+    }
+
+    function flipHint(target) {
+      const flipping = book.querySelectorAll('.leaf')[Math.min(leaf, target)];
+      if (!flipping) return;
+      flipping.classList.add('is-flipping');
+      setTimeout(() => flipping.classList.remove('is-flipping'), 820);
+    }
+
+    function go(delta) {
+      const target = Math.min(Math.max(leaf + delta, 0), leaves.length);
+      if (target === leaf) return;
+      flipHint(target);
+      leaf = target;
+      paint();
+      preload(leaf * (mode === 'spread' ? 2 : 1));
+    }
+
+    // W rozkładówce skrzydło 0 to sama okładka, a skrzydło i pokazuje strony 2i-1 i 2i.
+    function leafForPage(index) {
+      const target = mode === 'spread' ? (index === 0 ? 0 : Math.ceil(index / 2)) : index;
+      return Math.min(Math.max(target, 0), leaves.length);
+    }
+
+    function lastVisiblePage() {
+      const visible = visiblePages();
+      return visible[visible.length - 1];
+    }
+
+    function goPage(index) {
+      const target = leafForPage(index);
+      if (target === leaf) return;
+      flipHint(target);
+      leaf = target;
+      paint();
+    }
+
+    function switchMode(next, keepPage) {
+      mode = next;
+      root.dataset.mode = mode;
+      buildLeaves();
+      leaf = keepPage === null ? 0 : leafForPage(keepPage);
+      const builtForMode = book.dataset.built === mode;
+      book.dataset.built = mode;
+      if (builtForMode) {
+        bindLoads(book);
+        paint();
+      } else {
+        render();
+      }
+      preload(leaf * (mode === 'spread' ? 2 : 1));
+    }
+
+    function openZoom(index) {
+      zoomAt = index;
+      zoomImg.src = PAGES[index].zoom;
+      zoomImg.alt = PAGES[index].alt;
+      zoomTitle.textContent = `Strona ${index + 1} z ${PAGES.length}`;
+      zoomBox.hidden = false;
+    }
+
+    function closeZoom() {
+      zoomBox.hidden = true;
+      zoomAt = null;
+    }
+
+    book.addEventListener('click', (event) => {
+      const leafEl = event.target.closest('.leaf');
+      if (!leafEl) return;
+      go(Number(leafEl.dataset.leaf) < leaf ? -1 : 1);
+    });
+    book.addEventListener('dblclick', (event) => {
+      const face = event.target.closest('.face');
+      if (face) openZoom(Number(face.dataset.page));
+    });
+    rail.addEventListener('click', (event) => {
+      const thumb = event.target.closest('[data-goto]');
+      if (thumb) goPage(Number(thumb.dataset.goto));
+    });
+    prevBtn.addEventListener('click', () => go(-1));
+    nextBtn.addEventListener('click', () => go(1));
+    modeBtn.addEventListener('click', () => {
+      modeIsManual = true;
+      switchMode(mode === 'spread' ? 'single' : 'spread', lastVisiblePage());
+    });
+    zoomBtn.addEventListener('click', () => {
+      const visible = visiblePages();
+      openZoom(visible[visible.length - 1]);
+    });
+    fullBtn.addEventListener('click', () => {
+      if (document.fullscreenElement) document.exitFullscreen();
+      else root.requestFullscreen?.();
+    });
+    root.querySelector('[data-act="zoom-close"]').addEventListener('click', closeZoom);
+    root.querySelector('[data-act="zoom-prev"]').addEventListener('click', (event) => {
+      event.stopPropagation();
+      if (zoomAt > 0) openZoom(zoomAt - 1);
+    });
+    root.querySelector('[data-act="zoom-next"]').addEventListener('click', (event) => {
+      event.stopPropagation();
+      if (zoomAt < PAGES.length - 1) openZoom(zoomAt + 1);
+    });
+    zoomBox.addEventListener('click', (event) => {
+      if (event.target === zoomBox || event.target === zoomStage) closeZoom();
+    });
+
+    narrow.addEventListener('change', (event) => {
+      if (modeIsManual) return;
+      switchMode(event.matches ? 'single' : 'spread', lastVisiblePage());
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && zoomAt !== null) return closeZoom();
+      if (zoomAt !== null) {
+        if (event.key === 'ArrowRight' && zoomAt < PAGES.length - 1) openZoom(zoomAt + 1);
+        if (event.key === 'ArrowLeft' && zoomAt > 0) openZoom(zoomAt - 1);
+        return;
+      }
+      if (event.key === 'ArrowRight') go(1);
+      if (event.key === 'ArrowLeft') go(-1);
+      if (event.key === 'Home') goPage(0);
+      if (event.key === 'End') goPage(PAGES.length - 1);
+      if (event.key.toLowerCase() === 's') modeBtn.click();
+      if (event.key.toLowerCase() === 'z') zoomBtn.click();
+      if (event.key.toLowerCase() === 'f') fullBtn.click();
+    });
+
+    let touchX = null;
+    book.addEventListener(
+      'touchstart',
+      (event) => {
+        touchX = event.touches[0].clientX;
+      },
+      { passive: true },
+    );
+    book.addEventListener('touchend', (event) => {
+      if (touchX === null) return;
+      const dx = event.changedTouches[0].clientX - touchX;
+      if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
+      touchX = null;
+    });
+
+    switchMode(narrow.matches ? 'single' : 'spread', null);
+    root.dataset.ready = 'true';
+  }
+</script>
+
+<style>
+  .gazetka {
+    --ratio: 0.7069;
+    --dur: 780ms;
+    --ease: cubic-bezier(0.33, 0, 0.2, 1);
+    --gutter: 176px;
+    --page-h: min(74vh, 820px);
+    --avail-w: 100%;
+    --hairline: rgba(44, 36, 32, 0.1);
+    --bar-bg: rgba(251, 247, 242, 0.86);
+
+    position: relative;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: minmax(0, 1fr);
+    overflow: hidden;
+    border-radius: 1.5rem;
+    background: radial-gradient(120% 90% at 50% 0%, #fffdfa 0%, #f7f0e7 58%, #efe6da 100%);
+    color: var(--color-ink);
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-width: 0;
+    padding: 10px 18px;
+    border-bottom: 1px solid var(--hairline);
+    background: var(--bar-bg);
+    backdrop-filter: blur(10px);
+  }
+  .brand {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    min-width: 0;
+    overflow: hidden;
+  }
+  .brand__name {
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    font-size: 18px;
+    color: var(--color-brand);
+  }
+  .brand__title {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--color-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .brand__title::before {
+    content: '·';
+    margin-right: 8px;
+    color: var(--color-muted);
+  }
+  .tools {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+    flex: 0 0 auto;
+  }
+  .tool {
+    border: 1px solid var(--hairline);
+    background: rgba(255, 255, 255, 0.7);
+    color: var(--color-ink);
+    border-radius: 10px;
+    padding: 7px 11px;
+    font-size: 13px;
+    font-weight: 700;
+    transition:
+      background 160ms ease,
+      border-color 160ms ease,
+      transform 160ms ease;
+  }
+  .tool:hover {
+    background: #fff;
+    transform: translateY(-1px);
+  }
+  .tool:focus-visible,
+  .nav:focus-visible,
+  .thumb:focus-visible {
+    outline: 3px solid rgba(114, 59, 111, 0.55);
+    outline-offset: 2px;
+  }
+
+  .viewer {
+    position: relative;
+    display: grid;
+    place-items: center;
+    padding: 18px 0 26px;
+    min-height: 0;
+  }
+  .nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 950;
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 999px;
+    border: 1px solid rgba(114, 59, 111, 0.22);
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--color-brand);
+    font-size: 26px;
+    line-height: 1;
+    box-shadow: 0 8px 22px rgba(44, 36, 32, 0.16);
+    transition:
+      transform 160ms ease,
+      opacity 200ms ease,
+      background 160ms ease;
+  }
+  .nav:hover:not([disabled]) {
+    transform: translateY(-50%) scale(1.06);
+  }
+  .nav[disabled] {
+    opacity: 0.25;
+    cursor: default;
+  }
+  .nav--prev {
+    left: 14px;
+  }
+  .nav--next {
+    right: 14px;
+  }
+
+  .book {
+    position: relative;
+    --spread: 2;
+    --page-w: min(
+      calc(var(--page-h) * var(--ratio)),
+      calc((var(--avail-w) - var(--gutter)) / var(--spread))
+    );
+    width: calc(var(--page-w) * var(--spread));
+    aspect-ratio: calc(var(--spread) * var(--ratio));
+    perspective: 2600px;
+    perspective-origin: 50% 42%;
+    transition:
+      width 240ms ease,
+      transform 320ms var(--ease);
+  }
+  /* Gdy widoczna jest tylko okładka albo tylna okładka, blok przesuwa się na środek,
+     żeby pusta połowa nie wyglądała jak brakująca strona. */
+  .book[data-solo='right'] {
+    transform: translateX(-25%);
+  }
+  .book[data-solo='left'] {
+    transform: translateX(25%);
+  }
+  .gazetka[data-mode='spread'] .book {
+    --spread: 2;
+  }
+  .gazetka[data-mode='single'] .book {
+    --spread: 1;
+  }
+
+  .book__shadow {
+    position: absolute;
+    left: var(--shadow-left, 0);
+    right: var(--shadow-right, 0);
+    bottom: -26px;
+    height: 46px;
+    background: radial-gradient(
+      50% 100% at 50% 0%,
+      rgba(24, 18, 15, 0.42),
+      rgba(24, 18, 15, 0)
+    );
+    filter: blur(7px);
+    transition:
+      left 320ms var(--ease),
+      right 320ms var(--ease);
+    pointer-events: none;
+  }
+  .book[data-open='left'] {
+    --shadow-left: 0;
+    --shadow-right: 50%;
+  }
+  .book[data-open='right'] {
+    --shadow-left: 50%;
+    --shadow-right: 0;
+  }
+  .book[data-open='both'] {
+    --shadow-left: 0;
+    --shadow-right: 0;
+  }
+  .book[data-open='none'] {
+    --shadow-left: 50%;
+    --shadow-right: 50%;
+  }
+
+  /* Skrzydła i kartki powstają także w JS (przy zmianie trybu), a Astro skopuje styl
+     tylko do elementów wyrenderowanych na serwerze — stąd :global() pod .gazetka. */
+  .gazetka :global(.leaf) {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transform-origin: left center;
+    transition: transform var(--dur) var(--ease);
+    cursor: pointer;
+    z-index: var(--leaf-z, 1);
+  }
+  .gazetka[data-mode='single'] :global(.leaf) {
+    left: 0;
+    width: 100%;
+  }
+  .gazetka :global(.leaf.is-flipped) {
+    transform: rotateY(-180deg);
+  }
+  .gazetka :global(.leaf.is-flipping) {
+    z-index: 900;
+    will-change: transform;
+  }
+  .gazetka :global(.leaf):hover :global(.face) {
+    box-shadow:
+      0 18px 42px rgba(44, 36, 32, 0.28),
+      0 0 0 1px rgba(44, 36, 32, 0.05);
+  }
+
+  .gazetka :global(.face) {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background: #fff;
+    backface-visibility: hidden;
+    border-radius: 0 3px 3px 0;
+    box-shadow:
+      0 14px 34px rgba(44, 36, 32, 0.22),
+      0 0 0 1px rgba(44, 36, 32, 0.05);
+    transition: box-shadow 200ms ease;
+  }
+  .gazetka :global(.face--back) {
+    transform: rotateY(180deg);
+  }
+  .gazetka :global(.face img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 0;
+    transition: opacity 320ms ease;
+    background: linear-gradient(100deg, #efe8e1 30%, #f8f4ef 50%, #efe8e1 70%);
+  }
+  .gazetka :global(.face img.is-loaded) {
+    opacity: 1;
+  }
+  .gazetka :global(.face)::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(90deg, rgba(28, 20, 16, 0.22), rgba(28, 20, 16, 0) 13%),
+      linear-gradient(270deg, rgba(28, 20, 16, 0.07), rgba(28, 20, 16, 0) 5%);
+  }
+  .gazetka :global(.face--back)::after {
+    background:
+      linear-gradient(270deg, rgba(28, 20, 16, 0.22), rgba(28, 20, 16, 0) 13%),
+      linear-gradient(90deg, rgba(28, 20, 16, 0.07), rgba(28, 20, 16, 0) 5%);
+  }
+  .gazetka :global(.leaf.is-flipping) :global(.face)::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(
+      105deg,
+      rgba(255, 255, 255, 0) 38%,
+      rgba(255, 255, 255, 0.5) 50%,
+      rgba(255, 255, 255, 0) 62%
+    );
+    animation: sheen var(--dur) var(--ease);
+  }
+  @keyframes sheen {
+    from {
+      transform: translateX(-58%);
+      opacity: 0.9;
+    }
+    to {
+      transform: translateX(58%);
+      opacity: 0;
+    }
+  }
+
+  .rail {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 10px 18px 14px;
+    border-top: 1px solid var(--hairline);
+    background: var(--bar-bg);
+  }
+  .rail__pages {
+    display: flex;
+    gap: 7px;
+    overflow-x: auto;
+    padding: 2px;
+    scrollbar-width: none;
+  }
+  .rail__pages::-webkit-scrollbar {
+    display: none;
+  }
+  .thumb {
+    position: relative;
+    flex: 0 0 auto;
+    width: 40px;
+    height: calc(40px / var(--ratio));
+    border: 2px solid transparent;
+    border-radius: 4px;
+    padding: 0;
+    overflow: hidden;
+    background: #fff;
+    opacity: 0.62;
+    transition:
+      opacity 180ms ease,
+      border-color 180ms ease,
+      transform 180ms ease;
+  }
+  .thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .thumb:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+  }
+  .thumb[aria-current='true'] {
+    opacity: 1;
+    border-color: var(--color-brand);
+  }
+  .count {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-muted);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .zoom {
+    position: fixed;
+    inset: 0;
+    z-index: 1300;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    background: rgba(14, 11, 10, 0.96);
+    color: #fff;
+  }
+  .zoom[hidden] {
+    display: none;
+  }
+  .zoom__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 16px;
+  }
+  .zoom__stage {
+    position: relative;
+    display: grid;
+    place-items: center;
+    overflow: auto;
+    padding: 0 16px 20px;
+  }
+  .zoom__stage img {
+    max-width: 100%;
+    max-height: 100%;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+    border-radius: 3px;
+  }
+  .zoom .nav--prev {
+    left: 6px;
+  }
+  .zoom .nav--next {
+    right: 6px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gazetka :global(.leaf),
+    .book,
+    .book__shadow,
+    .gazetka :global(.face img) {
+      transition-duration: 1ms;
+    }
+    .gazetka :global(.leaf.is-flipping) :global(.face)::before {
+      animation: none;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .gazetka {
+      --gutter: 44px;
+    }
+    .gazetka .nav {
+      width: 44px;
+      height: 44px;
+      font-size: 22px;
+    }
+    /* Zanim JS ustawi tryb, blok ma już wyglądać jak pojedyncza strona — bez tego
+       okładka mignęłaby jako połowa rozkładówki. */
+    .gazetka:not([data-ready]) .book {
+      --spread: 1;
+      transform: none;
+    }
+    .gazetka:not([data-ready]) :global(.leaf) {
+      left: 0;
+      width: 100%;
+    }
+  }
+</style>
