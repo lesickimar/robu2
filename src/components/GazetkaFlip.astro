@@ -27,7 +27,7 @@ const leaves = Array.from({ length: Math.ceil(pages.length / 2) }, (_, i) => ({
         type="button"
         class="tool"
         data-act="mode"
-        aria-label="Przełącz rozkładówkę i pojedynczą stronę">Rozkładówka</button
+        title="Przełącz rozkładówkę i pojedynczą stronę (S)">Rozkładówka</button
       >
       <button type="button" class="tool" data-act="zoom" aria-label="Powiększ widoczną stronę"
         >Powiększ</button
@@ -790,6 +790,13 @@ const leaves = Array.from({ length: Math.ceil(pages.length / 2) }, (_, i) => ({
     .gazetka:not([data-ready]) :global(.leaf) {
       left: 0;
       width: 100%;
+    }
+    /* Nazwa marki ściskała przyciski do 0 px i ucinała ostatni z nich na 390 px. */
+    .gazetka .brand {
+      display: none;
+    }
+    .gazetka .tools {
+      margin-left: auto;
     }
   }
 </style>
